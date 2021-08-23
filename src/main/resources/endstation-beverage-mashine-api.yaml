@@ -1,0 +1,335 @@
+openapi: "3.0.0"
+info:
+  title: Endstation beverage machine API
+  description: This api handles beverage machine data. It provides possibilities to create drinks and is communicating with the baverage machine itself to apply data or trigger drinks.
+  version: 0.0.1
+
+# todos: 
+# - Rework create endpoints to insert multiple data, not just 1 at a time 
+
+
+servers:
+  - url: '{protocol}://127.0.0.1:{port}/api/v1'
+    description: Local Host example
+    variables:
+      port:
+        enum:
+          - '8080'
+        default: '8080'
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+paths:
+  /drinks/ingredients:
+    post:
+      summary: "Use this endpoint to create an ingredient"
+      tags:
+        - Ingredient Management
+      operationId: createIngredient
+      requestBody:
+        description: It is required to send the following request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngredientData'
+      responses:
+        '201':
+          description: Ingredient got successfuly created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngredientResponse'
+    get:
+      summary: "Use this endpoint to get all ingredients. Later, this endpoint will supports query parameters for filtering"
+      tags:
+        - Ingredient Management
+      operationId: getIngredients
+      responses:
+        '200':
+          description: Ingredients got found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngredientDataList'
+  /drinks/ingredient/{ingredientId}:
+    post:
+      summary: "Use this endpoint to update an ingredient"
+      tags:
+        - Ingredient Management
+      operationId: updateIngredient
+      parameters:
+        - name: ingredientId
+          in: path
+          description: Ingredient Id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: It is required to send the following request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngredientData'
+      responses:
+        '204':
+          description: Ingredient got successfuly updated
+    get:
+      summary: "Use this endpoint to get an ingredient by id"
+      tags:
+        - Ingredient Management
+      operationId: getIngredient
+      parameters:
+        - name: ingredientId
+          in: path
+          description: Ingredient Id
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Ingredient got successfuly updated
+  /drinks:
+    post:
+      summary: "Use this endpoint to create a drink"
+      tags:
+        - Drink Management
+      operationId: createDrink
+      requestBody:
+        description: It is required to send the following request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DrinkData'
+      responses:
+        '201':
+          description: Drink got successfuly created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DrinkDataResponse'
+    get:
+      summary: "Use this endpoint to get all drinks.  Later, this endpoint will supports query parameters for filtering"
+      tags:
+        - Drink Management
+      operationId: getDrinks
+      responses:
+        '200':
+          description: Drink got successfuly updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DrinkDataList'
+  /drinks/{drinkId}:
+    post:
+      summary: "Use this endpoint to update a drink"
+      tags:
+        - Drink Management
+      operationId: updateDrink
+      parameters:
+        - name: drinkId
+          in: path
+          description: Drink Id
+          required: true
+          schema:
+            type: number
+      
+      requestBody:
+        description: It is required to send the following request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DrinkData'
+      responses:
+        '204':
+          description: Drink got successfuly updated
+    get:
+      summary: "Use this endpoint to get a drink by id"
+      tags:
+        - Drink Management
+      operationId: getDrink
+      parameters:
+        - name: drinkId
+          in: path
+          description: Drink Id
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Drink got found
+  /beverage-machine/ingredience:
+    post:
+      summary: "Use this endpoint to tell the machine which slots contains which ingredience"
+      tags:
+        - Machine Interactions
+      operationId: setIngredienceOnMachine
+      requestBody:
+        description: It is required to send the following request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MachineIngredienceRequest'
+      responses:
+        '200':
+          description: All current ingredience slots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineIngredienceResponse'
+    get:
+      summary: "Get all current ingredience slots"
+      tags:
+        - Machine Interactions
+      operationId: getIngrediencesFromMachine
+      responses:
+        '200':
+          description: Get all current ingredience slots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineIngredienceResponse'
+  /beverage-machine/mix:
+    post:
+      summary: "Use this endpoint trigger the mixing with a specific drink receipt"
+      tags:
+        - Machine Interactions
+      operationId: mix
+      requestBody:
+        description: It is required to send the following request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MachineMixRequest'
+      responses:
+        '200':
+          description: Drink mixing in progress
+        '404':
+          description: Machine is not reachable
+        '409':
+          description: There is already mixing in progress
+components:
+  schemas:
+    IngredientDataList:
+      type: array
+      items: 
+        $ref: '#/components/schemas/IngredientData'
+    IngredientData:
+      required:
+        - name
+        - liquidType
+      properties:
+        name:
+          type: string
+        liquidType:
+          type: string
+          enum: [ALCOHOL, SOFTDRINK]
+    IngredientResponse:
+      required:
+        - ingredientId
+      properties:
+        ingredientId:
+          type: number
+          description: "unique id of the ingredient"
+    DrinkDataList:
+      type: array
+      items: 
+        $ref: '#/components/schemas/DrinkData'
+    DrinkData:
+      required:
+        - name
+        - ingredients
+        - isBasicDrink
+      properties:
+        name:
+          type: string
+          description: "name of the drink"
+        isBasicDrink:
+          type: boolean
+          description: "this field indicates if this drink is a standard drink, from which other visitors can create different mix- variants."
+        visitorId:
+          type: string
+          description: "the visitor who created this drink. It is not required to link drinks with visitors yet."
+          example: 64441396-d665-4b91-9924-84c87b5f48ce 
+        ingredients:
+          type: array
+          description: "list of ingredients with exact amount of quantity"
+          items:
+            $ref: '#/components/schemas/DrinkIngredients'
+    DrinkDataForMachine:
+      required:
+        - ingredients
+      properties:
+        ingredients:
+          type: array
+          description: "list of ingredients with exact amount of quantity"
+          items:
+            $ref: '#/components/schemas/DrinkIngredients'
+    DrinkIngredients:
+      required:
+        - ingredientId
+        - amount
+        - unit
+      properties:
+        ingredientId:
+          type: number
+          description: "unique id of the ingredient"
+        amount:
+          type: number
+          description: "this attribute combined with the unit is handling the quantity of the ingredient in the drink"
+        unit:
+          type: string
+          description: "unit for the amount"
+          enum: [CL]
+    DrinkDataResponse:
+      required:
+        - drinkId
+      properties:
+        drinkId:
+          type: number
+          description: "unique id of the drink"
+    MachineIngredienceRequest:
+      required:
+        - slotId
+        - ingredienceId
+      properties:
+        slotId:
+          type: number
+          description: "bottle slot"   
+        ingredienceId:
+          type: number
+          description: "ingredience id" 
+    MachineIngredienceResponse:
+      type: array
+      description: "all current slots ids related to the current ingrediences"
+      items:
+        $ref: '#/components/schemas/BottleSlots'
+    BottleSlots:
+      required:
+        - slotId
+        - ingredienceId
+      properties:
+          slotId:
+            type: number
+            description: "bottle slot"   
+          ingredienceId:
+            type: number
+            description: "ingredience id" 
+    MachineMixRequest:
+      required:
+        - visitorId
+        - drink
+      properties:
+        visitorId:
+          type: string
+          example: 64441396-d665-4b91-9924-84c87b5f48ce   
+        drink:
+          $ref: '#/components/schemas/DrinkDataForMachine'
+          
