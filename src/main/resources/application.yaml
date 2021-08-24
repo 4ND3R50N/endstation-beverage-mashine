@@ -7,9 +7,10 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
   datasource:
+    # Has to be overwritten on deployment!
     url: mysql://${MYSQL_HOST:localhost}:3306/endstation-beverage-machine-service
     username: endstation-beverage-machine
-    # overwritten on deployment
+    # Has to be overwritten on deployment!
     password: local
     driver-class-name: com.mysql.cj.jdbc.Driver
 
