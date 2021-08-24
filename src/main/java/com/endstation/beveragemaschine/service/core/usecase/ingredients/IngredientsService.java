@@ -7,6 +7,9 @@ import com.endstation.beveragemaschine.service.dataprovider.db.ingredients.Ingre
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
+
+@Valid
 @Service
 @RequiredArgsConstructor
 public class IngredientsService {
@@ -15,10 +18,11 @@ public class IngredientsService {
 
     public IngredientResponse createIngredient(IngredientData ingredientData) {
 
-        Long ingredientId = ingredientsRepository.save(IngredientsEntity.builder()
+        IngredientsEntity save = ingredientsRepository.save(IngredientsEntity.builder()
                 .name(ingredientData.getName())
                 .liquidType(ingredientData.getLiquidType())
-                .build()).getIngredientId();
+                .build());
+        Long ingredientId = save.getIngredientId();
 
         return IngredientResponse.builder()
                 .ingredientId(ingredientId)

@@ -6,10 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(classes = {
-        EndstationBeverageMaschineServiceApplication.class,
+        EndstationBeverageMachineServiceApplication.class,
         H2TestProfileJPAConfig.class})
 @ActiveProfiles("test")
-class EndstationBeverageMaschineServiceApplicationTests {
+class EndstationBeverageMachineServiceApplicationTests {
 
     @Test
     void contextLoads() {

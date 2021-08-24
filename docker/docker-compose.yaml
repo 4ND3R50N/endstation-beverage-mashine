@@ -1,13 +1,50 @@
 services:
-  db:
-    image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/mysql
+  postgres:
+    image: postgres:13.4
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: endstation-beverage-machine-service
-      MYSQL_USER: endstation-beverage-machine
-      MYSQL_PASSWORD: local
+      - POSTGRES_USER=sa
+      - POSTGRES_PASSWORD=sa
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      # copy the sql script to create tables
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      beverage-machine-network:
+        ipv4_address: 172.21.0.2
+#  db:
+#    image: mysql:5.7
+#    volumes:
+#      - ./db_data:/var/lib/mysql
+#      - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: endstation-beverage-machine-service
+#      MYSQL_USER: endstation-beverage-machine
+#      MYSQL_PASSWORD: local
+#    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+#    networks:
+#      - beverage-machine-network
   beverage-machine-service:
     image: endstation-beverage-maschine-service:0.0.1-SNAPSHOT
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: 172.21.0.2
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: sa
+    networks:
+      - beverage-machine-network
+networks:
+  beverage-machine-network:
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+    external: false
