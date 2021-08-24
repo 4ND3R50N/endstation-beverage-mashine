@@ -66,7 +66,8 @@ paths:
           description: Ingredient Id
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       requestBody:
         description: It is required to send the following request
         required: true
@@ -88,7 +89,9 @@ paths:
           description: Ingredient Id
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
+
       responses:
         '200':
           description: Ingredient got successfuly updated
@@ -236,7 +239,8 @@ components:
         - ingredientId
       properties:
         ingredientId:
-          type: number
+          type: integer
+          format: int64
           description: "unique id of the ingredient"
     DrinkDataList:
       type: array
@@ -279,7 +283,8 @@ components:
         - unit
       properties:
         ingredientId:
-          type: number
+          type: integer
+          format: int64
           description: "unique id of the ingredient"
         amount:
           type: number
