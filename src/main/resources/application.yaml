@@ -1,0 +1,15 @@
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  datasource:
+    url: mysql://${MYSQL_HOST:localhost}:3306/endstation-beverage-machine-service
+    username: endstation-beverage-machine
+    # overwritten on deployment
+    password: local
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
