@@ -27,10 +27,11 @@ public class IngredientsEntity {
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long ingredientId;
 
+    @Column(unique = true)
     private String name;
 
     @Column(name = "liquid_type")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private LiquidTypeEnum liquidType;
 
 

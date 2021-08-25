@@ -5,9 +5,7 @@ info:
   version: 0.0.1
 
 # todos: 
-# - Rework create endpoints to insert multiple data, not just 1 at a time 
-
-
+# - Rework create endpoints to insert multiple data, not just 1 at a time
 servers:
   - url: '{protocol}://127.0.0.1:{port}/api/v1'
     description: Local Host example
@@ -42,6 +40,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngredientResponse'
+        '409':
+          description: Ingredient already existed
     get:
       summary: "Use this endpoint to get all ingredients. Later, this endpoint will supports query parameters for filtering"
       tags:
@@ -337,4 +337,3 @@ components:
           example: 64441396-d665-4b91-9924-84c87b5f48ce   
         drink:
           $ref: '#/components/schemas/DrinkDataForMachine'
-          

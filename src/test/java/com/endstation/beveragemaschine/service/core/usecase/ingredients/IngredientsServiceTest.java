@@ -7,6 +7,9 @@ import com.endstation.beveragemaschine.service.dataprovider.db.ingredients.Ingre
 import com.endstation.beveragemaschine.service.dataprovider.db.ingredients.IngredientsRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,17 +33,16 @@ class IngredientsServiceTest {
                 .name(name)
                 .liquidType(alcohol)
                 .build();
-
         IngredientsEntity ingredientsEntity = IngredientsEntity.builder()
                 .ingredientId(ingredientId)
                 .build();
 
         // when
         when(ingredientsRepository.save(any(IngredientsEntity.class))).thenReturn(ingredientsEntity);
-        IngredientResponse result = cut.createIngredient(ingredientData);
+        ResponseEntity<IngredientResponse> result = cut.createIngredient(ingredientData);
 
         // assert
-        assertEquals(result.getIngredientId(), ingredientId);
+        assertEquals(Objects.requireNonNull(result.getBody()).getIngredientId(), ingredientId);
     }
 
 }
