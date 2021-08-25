@@ -1,5 +1,5 @@
-# endstation-beverage-mashine
-A spring native based microservice who is handling use cases for the "endstation beverage mashine"
+# Endstation Beverage Machine Service
+A spring native based microservice who is handling use cases for the "endstation beverage machine"
 
 ## How to run
 The repository contains everything to run the service locally with mysql.

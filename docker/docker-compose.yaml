@@ -26,7 +26,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      MYSQL_HOST: 172.21.0.2
+      DB_ROOT: 172.21.0.2
       SPRING_DATASOURCE_USERNAME: sa
       SPRING_DATASOURCE_PASSWORD: sa
     networks:
