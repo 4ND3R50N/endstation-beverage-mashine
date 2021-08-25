@@ -9,11 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class IngredientsService {
+import java.util.List;
+import java.util.stream.Collectors;
 
-    private final IngredientsRepository ingredientsRepository;
+@Service
+public record IngredientsService(
+        IngredientsRepository ingredientsRepository) {
 
     public ResponseEntity<IngredientResponse> createIngredient(IngredientData ingredientData) {
 
@@ -27,5 +28,14 @@ public class IngredientsService {
                         .liquidType(ingredientData.getLiquidType())
                         .build()).getIngredientId())
                 .build(), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<List<IngredientData>> getIngredients() {
+        return ResponseEntity.ok(ingredientsRepository.findAll().stream()
+                .map(ingredientsEntity -> IngredientData.builder()
+                        .name(ingredientsEntity.getName())
+                        .liquidType(ingredientsEntity.getLiquidType())
+                        .build())
+                .toList());
     }
 }

@@ -91,10 +91,13 @@ paths:
           schema:
             type: integer
             format: int64
-
       responses:
         '200':
-          description: Ingredient got successfuly updated
+          description: Ingredient got successfuly fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngredientData'
   /drinks:
     post:
       summary: "Use this endpoint to create a drink"
