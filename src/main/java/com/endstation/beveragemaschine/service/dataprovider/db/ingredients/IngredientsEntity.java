@@ -1,6 +1,6 @@
 package com.endstation.beveragemaschine.service.dataprovider.db.ingredients;
 
-import com.endstation.beveragemaschine.model.IngredientData.LiquidTypeEnum;
+import com.endstation.beveragemaschine.service.model.IngredientData.LiquidTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

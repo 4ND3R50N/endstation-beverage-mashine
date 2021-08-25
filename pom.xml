@@ -11,7 +11,7 @@
     <groupId>com.endstation.beveragemaschine</groupId>
     <artifactId>endstation-beverage-maschine-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>endstation-beverage-maschine-service</name>
+    <name>endstation-beverage-machine-service</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
@@ -43,7 +43,15 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
         <!--
             TEST DEPENDENCIES
@@ -52,6 +60,11 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>2.23.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -90,18 +103,6 @@
             <artifactId>swagger-annotations</artifactId>
             <version>2.1.7</version>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -118,10 +119,10 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/endstation-beverage-mashine-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/endstation-beverage-machine-api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.endstation.beveragemaschine.api</apiPackage>
-                            <modelPackage>com.endstation.beveragemaschine.model</modelPackage>
+                            <apiPackage>com.endstation.beveragemaschine.service.api</apiPackage>
+                            <modelPackage>com.endstation.beveragemaschine.service.model</modelPackage>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <configOptions>
                                 <delegatePattern>true</delegatePattern>

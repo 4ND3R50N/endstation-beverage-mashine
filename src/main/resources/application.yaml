@@ -9,7 +9,12 @@ spring:
   datasource:
     # Has to be overwritten on deployment!
     url: jdbc:postgresql://${DB_ROOT:localhost}:5432/endstation_beverage_maschine_service
-    username: overwrite
-    password: overwrite
+    username: sa
+    password: sa
     driver-class-name: org.postgresql.Driver
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings

@@ -9,18 +9,8 @@ info:
 
 
 servers:
-  - url: '{protocol}://127.0.0.1:{port}/api/v1'
+  - url: 'http://127.0.0.1:8080/api/v1'
     description: Local Host example
-    variables:
-      port:
-        enum:
-          - '8080'
-        default: '8080'
-      protocol:
-        enum:
-          - http
-          - https
-        default: http
 paths:
   /drinks/ingredients:
     post:

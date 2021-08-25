@@ -29,6 +29,8 @@ services:
       DB_ROOT: 172.21.0.2
       SPRING_DATASOURCE_USERNAME: sa
       SPRING_DATASOURCE_PASSWORD: sa
+    ports:
+      - '8080:8080'
     networks:
       - beverage-machine-network
 networks:
