@@ -5,9 +5,7 @@ info:
   version: 0.0.1
 
 # todos: 
-# - Rework create endpoints to insert multiple data, not just 1 at a time 
-
-
+# - Rework create endpoints to insert multiple data, not just 1 at a time
 servers:
   - url: '{protocol}://127.0.0.1:{port}/api/v1'
     description: Local Host example
@@ -42,6 +40,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngredientResponse'
+        '409':
+          description: Ingredient already existed
     get:
       summary: "Use this endpoint to get all ingredients. Later, this endpoint will supports query parameters for filtering"
       tags:
@@ -66,7 +66,8 @@ paths:
           description: Ingredient Id
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       requestBody:
         description: It is required to send the following request
         required: true
@@ -88,7 +89,9 @@ paths:
           description: Ingredient Id
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
+
       responses:
         '200':
           description: Ingredient got successfuly updated
@@ -236,7 +239,8 @@ components:
         - ingredientId
       properties:
         ingredientId:
-          type: number
+          type: integer
+          format: int64
           description: "unique id of the ingredient"
     DrinkDataList:
       type: array
@@ -279,7 +283,8 @@ components:
         - unit
       properties:
         ingredientId:
-          type: number
+          type: integer
+          format: int64
           description: "unique id of the ingredient"
         amount:
           type: number
@@ -332,4 +337,3 @@ components:
           example: 64441396-d665-4b91-9924-84c87b5f48ce   
         drink:
           $ref: '#/components/schemas/DrinkDataForMachine'
-          

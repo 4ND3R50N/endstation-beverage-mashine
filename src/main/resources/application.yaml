@@ -3,14 +3,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
+  #  database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  #      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     # Has to be overwritten on deployment!
-    url: mysql://${MYSQL_HOST:localhost}:3306/endstation-beverage-machine-service
-    username: endstation-beverage-machine
-    # Has to be overwritten on deployment!
-    password: local
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
+    url: jdbc:postgresql://${DB_ROOT:localhost}:5432/endstation_beverage_machine_service
+    username: sa
+    password: sa
+    driver-class-name: org.postgresql.Driver

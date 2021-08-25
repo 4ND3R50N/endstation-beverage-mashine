@@ -1,5 +1,6 @@
-package com.endstation.beveragemaschine.service.dataprovider.db.ingredients;
+package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
 
+import com.endstation.beveragemachine.service.model.IngredientData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +25,14 @@ public class IngredientsEntity {
     @Id
     @Column(name = "ingredient_id")
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    private Integer ingredientId;
+    private Long ingredientId;
 
+    @Column(unique = true)
+    private String name;
+
+    @Column(name = "liquid_type")
+    @Enumerated(EnumType.STRING)
+    private IngredientData.LiquidTypeEnum liquidType;
 
 
 }

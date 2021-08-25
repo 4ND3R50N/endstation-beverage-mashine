@@ -1,15 +1,15 @@
-package com.endstation.beveragemaschine.service;
+package com.endstation.beveragemachine.service;
 
-import com.endstation.beveragemaschine.service.configuration.H2TestProfileJPAConfig;
+import com.endstation.beveragemachine.service.configuration.H2TestProfileJPAConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(classes = {
-        EndstationBeverageMaschineServiceApplication.class,
+        EndstationBeverageMachineServiceApplication.class,
         H2TestProfileJPAConfig.class})
 @ActiveProfiles("test")
-class EndstationBeverageMaschineServiceApplicationTests {
+class EndstationBeverageMachineServiceApplicationTests {
 
     @Test
     void contextLoads() {
