@@ -12,9 +12,3 @@ spring:
     username: sa
     password: sa
     driver-class-name: org.postgresql.Driver
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: mappings
