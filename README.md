@@ -17,7 +17,7 @@ or
 
 git clone git@github.com:4ND3R50N/endstation-beverage-machine-service.git
 
-cd endstation-beverage-machine-servic
+cd endstation-beverage-machine-service
 ```
 2. Build the native docker application
 ```commandline

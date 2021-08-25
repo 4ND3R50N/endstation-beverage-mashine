@@ -8,8 +8,8 @@
         <version>2.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.endstation.beveragemaschine</groupId>
-    <artifactId>endstation-beverage-maschine-service</artifactId>
+    <groupId>com.endstation.beveragemachine</groupId>
+    <artifactId>endstation-beverage-machine-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>endstation-beverage-machine-service</name>
     <description>Demo project for Spring Boot</description>
@@ -121,8 +121,8 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/endstation-beverage-machine-api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.endstation.beveragemaschine.service.api</apiPackage>
-                            <modelPackage>com.endstation.beveragemaschine.service.model</modelPackage>
+                            <apiPackage>com.endstation.beveragemachine.service.api</apiPackage>
+                            <modelPackage>com.endstation.beveragemachine.service.model</modelPackage>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <configOptions>
                                 <delegatePattern>true</delegatePattern>

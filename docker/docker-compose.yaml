@@ -21,7 +21,7 @@ services:
       beverage-machine-network:
         ipv4_address: 172.21.0.2
   beverage-machine-service:
-    image: endstation-beverage-maschine-service:0.0.1-SNAPSHOT
+    image: endstation-beverage-machine-service:0.0.1-SNAPSHOT
     depends_on:
       postgres:
         condition: service_healthy
