@@ -5,7 +5,6 @@ import com.endstation.beveragemachine.service.dataprovider.db.ingredients.Ingred
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
 import com.endstation.beveragemachine.service.model.IngredientResponse;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
@@ -43,10 +42,9 @@ class IngredientsServiceTest {
     @Mock
     private final IngredientsEntity ingredientsEntityTwoMock = mock(IngredientsEntity.class);
 
-    private final IngredientsService cut = new IngredientsService(ingredientsRepository, ingredientMapper);
+    private final IngredientsService cut = new IngredientsService(ingredientMapper, ingredientsRepository);
 
     @Test
-    @Disabled
     public void shouldCreateIngredient() {
         // give
         long ingredientId = 12L;
@@ -61,7 +59,7 @@ class IngredientsServiceTest {
                 .build();
 
         // when
-        //when(ingredientsRepository.existsByName(ingredientData.getName())).thenReturn(false);
+        when(ingredientsRepository.existsByName(ingredientData.getName())).thenReturn(false);
         when(ingredientMapper.map(ingredientData)).thenReturn(ingredientsEntity);
         when(ingredientsRepository.save(any(IngredientsEntity.class))).thenReturn(ingredientsEntity);
         ResponseEntity<IngredientResponse> result = cut.createIngredient(ingredientData);
@@ -71,7 +69,6 @@ class IngredientsServiceTest {
     }
 
     @Test
-    @Disabled
     public void shouldReturnConflictDueDuplicates() {
         // give
         String name = "test ingredient";
@@ -82,7 +79,7 @@ class IngredientsServiceTest {
                 .build();
 
         // when
-        // when(ingredientsRepository.existsByName(ingredientData.getName())).thenReturn(true);
+        when(ingredientsRepository.existsByName(ingredientData.getName())).thenReturn(true);
         ResponseEntity<IngredientResponse> result = cut.createIngredient(ingredientData);
 
         // assert
