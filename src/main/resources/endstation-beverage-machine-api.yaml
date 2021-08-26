@@ -78,6 +78,8 @@ paths:
       responses:
         '204':
           description: Ingredient got successfuly updated
+        '404':
+          description: Ingredient cant be found
     get:
       summary: "Use this endpoint to get an ingredient by id"
       tags:
@@ -98,6 +100,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngredientData'
+        '404':
+          description: Ingredient cant be found
   /drinks:
     post:
       summary: "Use this endpoint to create a drink"
@@ -232,6 +236,11 @@ components:
         - name
         - liquidType
       properties:
+        ingredientId:
+          type: integer
+          format: int64
+          nullable: true
+          description: "unique id of the ingredient, this is not necessary!"
         name:
           type: string
         liquidType:
