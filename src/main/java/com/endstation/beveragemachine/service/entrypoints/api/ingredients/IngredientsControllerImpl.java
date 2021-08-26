@@ -5,17 +5,23 @@ import com.endstation.beveragemachine.service.model.IngredientResponse;
 import com.endstation.beveragemachine.service.api.DrinksApiDelegate;
 import com.endstation.beveragemachine.service.core.usecase.ingredients.IngredientsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class IngredientsControllerImpl implements DrinksApiDelegate {
+import java.util.List;
 
-    private final IngredientsService ingredientsService;
+@Service
+public record IngredientsControllerImpl(
+        IngredientsService ingredientsService) implements DrinksApiDelegate {
 
     @Override
     public ResponseEntity<IngredientResponse> createIngredient(IngredientData ingredientData) {
         return ingredientsService.createIngredient(ingredientData);
+    }
+
+    @Override
+    public ResponseEntity<List<IngredientData>> getIngredients() {
+        return ingredientsService.getIngredients();
     }
 }
