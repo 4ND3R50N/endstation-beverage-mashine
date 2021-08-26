@@ -236,6 +236,11 @@ components:
         - name
         - liquidType
       properties:
+        ingredientId:
+          type: integer
+          format: int64
+          nullable: true
+          description: "unique id of the ingredient, this is not necessary!"
         name:
           type: string
         liquidType:

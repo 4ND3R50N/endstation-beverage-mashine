@@ -33,10 +33,7 @@ public class IngredientsService {
     }
     public ResponseEntity<List<IngredientData>> getIngredients() {
         return ResponseEntity.ok(ingredientsRepository.findAll().stream()
-                .map(ingredientsEntity -> IngredientData.builder()
-                        .name(ingredientsEntity.getName())
-                        .liquidType(ingredientsEntity.getLiquidType())
-                        .build())
+                .map(ingredientMapper::map)
                 .collect(Collectors.toList()));
     }
     public ResponseEntity<IngredientData> getIngredient(Long ingredientId) {
