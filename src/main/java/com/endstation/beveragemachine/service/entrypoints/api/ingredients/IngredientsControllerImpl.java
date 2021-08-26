@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public record IngredientsControllerImpl(
-        IngredientsService ingredientsService) implements DrinksApiDelegate {
+@RequiredArgsConstructor
+public class IngredientsControllerImpl implements DrinksApiDelegate {
+    private final IngredientsService ingredientsService;
 
     @Override
     public ResponseEntity<IngredientResponse> createIngredient(IngredientData ingredientData) {
