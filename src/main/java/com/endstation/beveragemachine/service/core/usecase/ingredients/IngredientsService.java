@@ -47,7 +47,9 @@ public class IngredientsService {
     }
 
     public ResponseEntity<Void> updateIngredient(Long ingredientId, IngredientData ingredientData) {
-        if (ingredientsRepository.findById(ingredientId).isEmpty()) {
+        // isEmpty() is sadly currently not working in native images due the following error:
+        // java.lang.NoSuchMethodError: java.util.Optional.isEmpty()
+        if (!ingredientsRepository.findById(ingredientId).isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         ingredientsRepository.save(ingredientMapper.map(ingredientId, ingredientData));
