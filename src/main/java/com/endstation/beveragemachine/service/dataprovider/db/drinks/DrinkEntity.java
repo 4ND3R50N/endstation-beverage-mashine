@@ -1,21 +1,21 @@
-package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
+package com.endstation.beveragemachine.service.dataprovider.db.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
-import com.endstation.beveragemachine.service.model.IngredientData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -23,17 +23,25 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ingredients")
-public class IngredientsEntity extends Audible<String> {
+@Table(name = "drinks")
+public class DrinkEntity extends Audible<String> {
     @Id
-    @Column(name = "ingredient_id")
+    @Column(name = "drink_id")
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    private Long ingredientId;
+    private Long drinkId;
+
+    @Column(name = "visitor_id")
+    private String visitorId;
+
+    @OneToMany(
+            mappedBy = "ingredients_conception",
+            cascade = CascadeType.ALL
+    )
+    private List<DrinkIngredientConceptionEntity> ingredientConceptions;
 
     @Column(unique = true)
     private String name;
 
-    @Column(name = "liquid_type")
-    @Enumerated(EnumType.STRING)
-    private IngredientData.LiquidTypeEnum liquidType;
+    @Column(name = "is_basic_drink")
+    private boolean isBasicDrink;
 }

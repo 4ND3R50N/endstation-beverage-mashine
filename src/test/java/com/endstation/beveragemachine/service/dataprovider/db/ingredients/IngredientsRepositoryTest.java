@@ -29,13 +29,13 @@ class IngredientsRepositoryTest {
         // given
         assertThat(ingredientsRepository).isNotNull();
 
-        IngredientsEntity ingredientsEntity = IngredientsEntity.builder()
+        IngredientEntity ingredientEntity = IngredientEntity.builder()
                 .name("orange juice")
                 .liquidType(IngredientData.LiquidTypeEnum.SOFTDRINK)
                 .build();
 
         // when
-        Long result = ingredientsRepository.save(ingredientsEntity).getIngredientId();
+        Long result = ingredientsRepository.save(ingredientEntity).getIngredientId();
 
         // then
         assertThat(result).isNotNull();
