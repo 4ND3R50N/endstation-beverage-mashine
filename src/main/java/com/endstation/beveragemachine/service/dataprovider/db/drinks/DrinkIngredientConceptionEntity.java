@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,14 +37,8 @@ public class DrinkIngredientConceptionEntity extends Audible<String> {
     private UnitEnum unit;
 
     @ManyToOne(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    private DrinkEntity drink;
-
-    @ManyToOne(
             cascade = CascadeType.ALL
     )
-    private IngredientEntity ingredients;
+    private IngredientEntity ingredient;
 
 }
