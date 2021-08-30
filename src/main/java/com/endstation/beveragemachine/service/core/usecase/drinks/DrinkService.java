@@ -12,13 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DrinkService {
 
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
     private final DrinkRepository drinkRepository;
 
     public ResponseEntity<DrinkDataResponse> createDrink(DrinkData drinkData) {
@@ -27,10 +29,10 @@ public class DrinkService {
                 .name(drinkData.getName())
                 .visitorId(drinkData.getVisitorId())
                 .ingredientConceptions(drinkData.getIngredients().stream()
-                        .map(drinkIngredients -> DrinkIngredientConceptionEntity.builder()
-                                .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredients.getIngredientId()))
-                                .amount(drinkIngredients.getAmount().intValue())
-                                .unit(drinkIngredients.getUnit())
+                        .map(drinkIngredient -> DrinkIngredientConceptionEntity.builder()
+                                .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                                .amount(drinkIngredient.getAmount().intValue())
+                                .unit(drinkIngredient.getUnit())
                                 .build())
                         .collect(Collectors.toList()))
                 .build()).getDrinkId();

@@ -2,7 +2,6 @@ package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionEntity;
-import com.endstation.beveragemachine.service.model.IngredientData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
+import static com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
@@ -40,14 +41,14 @@ public class IngredientEntity extends Audible<String> {
 
     @Column(name = "liquid_type")
     @Enumerated(EnumType.STRING)
-    private IngredientData.LiquidTypeEnum liquidType;
+    private LiquidTypeEnum liquidType;
 
     @OneToMany(
-            mappedBy = "drinkIngredientConceptionId",
+            mappedBy = "ingredient",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
     )
-    @Column(name = "drink_conceptions")
     private List<DrinkIngredientConceptionEntity> drinkConceptions;
 }
 

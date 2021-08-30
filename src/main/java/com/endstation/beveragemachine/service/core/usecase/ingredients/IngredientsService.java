@@ -42,7 +42,6 @@ public class IngredientsService {
         return ingredientDataOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
     public ResponseEntity<Void> updateIngredient(Long ingredientId, IngredientData ingredientData) {
         // isEmpty() is sadly currently not working in native images due the following error:
         // java.lang.NoSuchMethodError: java.util.Optional.isEmpty()
@@ -51,5 +50,9 @@ public class IngredientsService {
         }
         ingredientsRepository.save(ingredientMapper.map(ingredientId, ingredientData));
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
+        ingredientsRepository.deleteById(ingredientId);
+        return ResponseEntity.ok().build();
     }
 }

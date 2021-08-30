@@ -21,6 +21,7 @@ public class IngredientMapper {
                 .ingredientId(ingredientId)
                 .name(ingredientData.getName())
                 .liquidType(ingredientData.getLiquidType())
+                //.drinkConceptions(List.of())
                 .build();
     }
 
@@ -28,6 +29,7 @@ public class IngredientMapper {
         return IngredientEntity.builder()
                 .name(ingredientData.getName())
                 .liquidType(ingredientData.getLiquidType())
+                //.drinkConceptions(List.of())
                 .build();
     }
 }

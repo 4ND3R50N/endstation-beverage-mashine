@@ -1,5 +1,6 @@
 package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 
+import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionRepository;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkRepository;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
 import com.endstation.beveragemachine.service.model.DrinkData;
@@ -30,6 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DrinksControllerImplIntegrationTest {
 
     @Autowired
+    DrinkIngredientConceptionRepository drinkIngredientConceptionRepository;
+
+    @Autowired
     IngredientsRepository ingredientsRepository;
 
     @Autowired
@@ -40,12 +44,15 @@ class DrinksControllerImplIntegrationTest {
 
     @BeforeEach
     void setup() {
-        ingredientsRepository.deleteAll();
         drinkRepository.deleteAll();
+        drinkIngredientConceptionRepository.deleteAll();
+        ingredientsRepository.deleteAll();
+
+
     }
 
     @Test
-    void shouldCreateIngredientsAndADrink() {
+    void shouldCreateAndDeleteDrink() {
         // given
         IngredientData orangeJuice = IngredientData.builder()
                 .name("Orange Juice")
@@ -56,6 +63,7 @@ class DrinksControllerImplIntegrationTest {
                 .liquidType(LiquidTypeEnum.ALCOHOL)
                 .build();
         // when
+        // create two ingredients
         ResponseEntity<IngredientResponse> resultOne = testRestTemplate.exchange("/api/v1/drinks/ingredients", HttpMethod.POST, new HttpEntity<>(orangeJuice), IngredientResponse.class);
         ResponseEntity<IngredientResponse> resultTwo = testRestTemplate.exchange("/api/v1/drinks/ingredients", HttpMethod.POST, new HttpEntity<>(vodka), IngredientResponse.class);
 
@@ -80,9 +88,20 @@ class DrinksControllerImplIntegrationTest {
                                 .unit(UnitEnum.CL)
                                 .build()))
                 .build();
-
+        // create drink with ingredients
         ResponseEntity<DrinkDataResponse> resultThree = testRestTemplate.exchange("/api/v1/drinks", HttpMethod.POST, new HttpEntity<>(drink), DrinkDataResponse.class);
         assertEquals(resultThree.getStatusCode(), HttpStatus.CREATED);
 
+        // check database
+        assertEquals((long) ingredientsRepository.findAll().size(), 2);
+        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 2);
+        assertEquals((long) drinkRepository.findAll().size(), 1);
+
+        // remove ingredient
+        ResponseEntity<IngredientResponse> resultFour = testRestTemplate.exchange("/api/v1/drinks/ingredient/" + orangeJuiceId, HttpMethod.DELETE, new HttpEntity<>(orangeJuice), IngredientResponse.class);
+        assertEquals(resultFour.getStatusCode(), HttpStatus.OK);
+        assertEquals((long) ingredientsRepository.findAll().size(), 1);
+        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 1);
+        assertEquals((long) drinkRepository.findAll().size(), 1);
     }
 }

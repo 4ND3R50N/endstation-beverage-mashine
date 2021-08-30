@@ -102,6 +102,24 @@ paths:
                 $ref: '#/components/schemas/IngredientData'
         '404':
           description: Ingredient cant be found
+    delete:
+      summary: "Use this endpoint to delete an ingredient by id"
+      tags:
+        - Ingredient Management
+      operationId: deleteIngredient
+      parameters:
+        - name: ingredientId
+          in: path
+          description: Ingredient Id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ingredient got successfuly deleted
+        '404':
+          description: Ingredient cant be found
   /drinks:
     post:
       summary: "Use this endpoint to create a drink"
