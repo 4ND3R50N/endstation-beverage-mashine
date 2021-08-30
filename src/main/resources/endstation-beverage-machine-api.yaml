@@ -289,7 +289,7 @@ components:
           type: array
           description: "list of ingredients with exact amount of quantity"
           items:
-            $ref: '#/components/schemas/DrinkIngredients'
+            $ref: '#/components/schemas/DrinkIngredient'
     DrinkDataForMachine:
       required:
         - ingredients
@@ -298,8 +298,8 @@ components:
           type: array
           description: "list of ingredients with exact amount of quantity"
           items:
-            $ref: '#/components/schemas/DrinkIngredients'
-    DrinkIngredients:
+            $ref: '#/components/schemas/DrinkIngredient'
+    DrinkIngredient:
       required:
         - ingredientId
         - amount

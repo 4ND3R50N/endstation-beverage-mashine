@@ -43,10 +43,11 @@ public class IngredientEntity extends Audible<String> {
     private IngredientData.LiquidTypeEnum liquidType;
 
     @OneToMany(
-            mappedBy = "drinks",
+            mappedBy = "drinkIngredientConceptionId",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<DrinkIngredientConceptionEntity> user;
+    @Column(name = "drink_conceptions")
+    private List<DrinkIngredientConceptionEntity> drinkConceptions;
 }
 

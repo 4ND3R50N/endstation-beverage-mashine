@@ -34,7 +34,7 @@ public class DrinkEntity extends Audible<String> {
     private String visitorId;
 
     @OneToMany(
-            mappedBy = "ingredients_conception",
+            mappedBy = "drinkIngredientConceptionId",
             cascade = CascadeType.ALL
     )
     private List<DrinkIngredientConceptionEntity> ingredientConceptions;

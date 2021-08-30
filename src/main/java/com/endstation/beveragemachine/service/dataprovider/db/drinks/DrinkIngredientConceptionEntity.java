@@ -2,7 +2,7 @@ package com.endstation.beveragemachine.service.dataprovider.db.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
-import com.endstation.beveragemachine.service.model.DrinkIngredients.UnitEnum;
+import com.endstation.beveragemachine.service.model.DrinkIngredient.UnitEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

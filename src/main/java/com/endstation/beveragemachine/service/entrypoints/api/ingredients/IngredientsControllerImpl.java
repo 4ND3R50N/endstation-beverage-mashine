@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Component(value = "c1")
 @RequiredArgsConstructor
 public class IngredientsControllerImpl implements DrinksApiDelegate {
 
