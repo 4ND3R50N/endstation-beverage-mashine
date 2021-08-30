@@ -2,6 +2,7 @@ package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 
 import com.endstation.beveragemachine.service.core.usecase.drinks.DrinkService;
 import com.endstation.beveragemachine.service.core.usecase.ingredients.IngredientsService;
+import com.endstation.beveragemachine.service.model.DrinkData;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -51,6 +52,15 @@ class DrinksControllerImplTest {
     }
 
     @Test
+    void shouldExecuteDeleteIngredientByIdServiceFunction() {
+        // when
+        ingredientsController.deleteIngredient(12L);
+
+        // verify
+        verify(ingredientsService, times(1)).deleteIngredient(12L);
+    }
+
+    @Test
     void shouldExecuteUpdateIngredientServiceFunction() {
 
         IngredientData ingredientData = mock(IngredientData.class);
@@ -60,5 +70,17 @@ class DrinksControllerImplTest {
 
         // verify
         verify(ingredientsService, times(1)).updateIngredient(12L, ingredientData);
+    }
+
+    @Test
+    void shouldExecuteCreateDrinkServiceFunction() {
+
+        DrinkData drinkData = mock(DrinkData.class);
+
+        // when
+        ingredientsController.createDrink(drinkData);
+
+        // verify
+        verify(drinkService, times(1)).createDrink(drinkData);
     }
 }
