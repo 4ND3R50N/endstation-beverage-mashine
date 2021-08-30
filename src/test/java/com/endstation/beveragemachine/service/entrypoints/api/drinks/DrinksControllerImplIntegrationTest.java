@@ -11,6 +11,7 @@ import com.endstation.beveragemachine.service.model.IngredientResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -23,7 +24,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class DrinksControllerImplIntegrationTest {
 
     @Autowired
@@ -58,10 +59,10 @@ class DrinksControllerImplIntegrationTest {
                 .visitorId("Lars P.")
                 .isBasicDrink(true)
                 .ingredients(List.of(DrinkIngredient.builder()
-                        .ingredientId(vodkaId)
-                        .amount(BigDecimal.valueOf(1))
-                        .unit(UnitEnum.CL)
-                        .build(),
+                                .ingredientId(vodkaId)
+                                .amount(BigDecimal.valueOf(1))
+                                .unit(UnitEnum.CL)
+                                .build(),
                         DrinkIngredient.builder()
                                 .ingredientId(orangeJuiceId)
                                 .amount(BigDecimal.valueOf(2))
