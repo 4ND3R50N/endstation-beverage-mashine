@@ -1,6 +1,6 @@
 package com.endstation.beveragemachine.service.core.usecase.ingredients;
 
-import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
@@ -37,10 +37,10 @@ class IngredientsServiceTest {
     private final IngredientData ingredientDataTwoMock = mock(IngredientData.class);
 
     @Mock
-    private final IngredientsEntity ingredientsEntityMock = mock(IngredientsEntity.class);
+    private final IngredientEntity ingredientEntityMock = mock(IngredientEntity.class);
 
     @Mock
-    private final IngredientsEntity ingredientsEntityTwoMock = mock(IngredientsEntity.class);
+    private final IngredientEntity ingredientEntityTwoMock = mock(IngredientEntity.class);
 
     private final IngredientsService cut = new IngredientsService(ingredientMapper, ingredientsRepository);
 
@@ -54,14 +54,14 @@ class IngredientsServiceTest {
                 .name(name)
                 .liquidType(alcohol)
                 .build();
-        IngredientsEntity ingredientsEntity = IngredientsEntity.builder()
+        IngredientEntity ingredientEntity = IngredientEntity.builder()
                 .ingredientId(ingredientId)
                 .build();
 
         // when
         when(ingredientsRepository.existsByName(ingredientData.getName())).thenReturn(false);
-        when(ingredientMapper.map(ingredientData)).thenReturn(ingredientsEntity);
-        when(ingredientsRepository.save(any(IngredientsEntity.class))).thenReturn(ingredientsEntity);
+        when(ingredientMapper.map(ingredientData)).thenReturn(ingredientEntity);
+        when(ingredientsRepository.save(any(IngredientEntity.class))).thenReturn(ingredientEntity);
         ResponseEntity<IngredientResponse> result = cut.createIngredient(ingredientData);
 
         // assert
@@ -89,13 +89,13 @@ class IngredientsServiceTest {
     @Test
     public void shouldReturnAllIngredients() {
         // given
-        IngredientsEntity ingredientOne = IngredientsEntity.builder()
+        IngredientEntity ingredientOne = IngredientEntity.builder()
                 .ingredientId(1L)
                 .name("Orange juice")
                 .liquidType(LiquidTypeEnum.SOFTDRINK)
                 .build();
 
-        IngredientsEntity ingredientTwo = IngredientsEntity.builder()
+        IngredientEntity ingredientTwo = IngredientEntity.builder()
                 .ingredientId(1L)
                 .name("Vodka")
                 .liquidType(LiquidTypeEnum.ALCOHOL)
@@ -122,8 +122,8 @@ class IngredientsServiceTest {
         Long ingredientId = 12L;
 
         // when
-        when(ingredientsRepository.findById(ingredientId)).thenReturn(Optional.of(ingredientsEntityMock));
-        when(ingredientMapper.map(ingredientsEntityMock)).thenReturn(ingredientDataOneMock);
+        when(ingredientsRepository.findById(ingredientId)).thenReturn(Optional.of(ingredientEntityMock));
+        when(ingredientMapper.map(ingredientEntityMock)).thenReturn(ingredientDataOneMock);
         ResponseEntity<IngredientData> result = cut.getIngredient(ingredientId);
 
         // verify
@@ -142,7 +142,7 @@ class IngredientsServiceTest {
         ResponseEntity<IngredientData> result = cut.getIngredient(ingredientId);
 
         // verify
-        verify(ingredientMapper, times(0)).map((IngredientsEntity) any());
+        verify(ingredientMapper, times(0)).map((IngredientEntity) any());
         assertEquals(result.getStatusCode(), HttpStatus.NOT_FOUND);
 
     }
@@ -153,13 +153,13 @@ class IngredientsServiceTest {
         Long ingredientId = 12L;
 
         // when
-        when(ingredientsRepository.findById(ingredientId)).thenReturn(Optional.of(ingredientsEntityMock));
-        when(ingredientMapper.map(ingredientId, ingredientDataOneMock)).thenReturn(ingredientsEntityTwoMock);
+        when(ingredientsRepository.findById(ingredientId)).thenReturn(Optional.of(ingredientEntityMock));
+        when(ingredientMapper.map(ingredientId, ingredientDataOneMock)).thenReturn(ingredientEntityTwoMock);
 
         ResponseEntity<Void> result = cut.updateIngredient(ingredientId, ingredientDataOneMock);
 
         // verify
-        verify(ingredientsRepository, times(1)).save(ingredientsEntityTwoMock);
+        verify(ingredientsRepository, times(1)).save(ingredientEntityTwoMock);
         assertEquals(result.getStatusCode(), HttpStatus.OK);
     }
 

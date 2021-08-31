@@ -1,6 +1,6 @@
 package com.endstation.beveragemachine.service.core.usecase.ingredients;
 
-import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class IngredientMapperTest {
 
 
         // when
-        IngredientsEntity result = cut.map(ingredientData);
+        IngredientEntity result = cut.map(ingredientData);
 
         // assert
         assertNull(result.getIngredientId());
@@ -43,7 +43,7 @@ class IngredientMapperTest {
 
 
         // when
-        IngredientsEntity result = cut.map(ingredientId, ingredientData);
+        IngredientEntity result = cut.map(ingredientId, ingredientData);
 
         // assert
         assertEquals(result.getIngredientId(), ingredientId);
@@ -54,7 +54,7 @@ class IngredientMapperTest {
     @Test
     public void shouldMapEntityToData() {
         //given
-        IngredientsEntity ingredientsEntity = IngredientsEntity.builder()
+        IngredientEntity ingredientEntity = IngredientEntity.builder()
                 .ingredientId(12L)
                 .name(NAME)
                 .liquidType(LIQUID_TYPE)
@@ -62,7 +62,7 @@ class IngredientMapperTest {
 
 
         // when
-        IngredientData result = cut.map(ingredientsEntity);
+        IngredientData result = cut.map(ingredientEntity);
 
         // assert
         assertEquals(result.getName(), NAME);
