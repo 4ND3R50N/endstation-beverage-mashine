@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import javax.persistence.EntityManager;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +18,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class DrinkServiceTest {
+
+
+    @Mock
+    private final EntityManager entityManager = mock(EntityManager.class);
 
     @Mock
     private final DrinkData drinkDataMock = mock(DrinkData.class);
@@ -27,7 +32,7 @@ class DrinkServiceTest {
     @Mock
     private final DrinkRepository drinkRepository = mock(DrinkRepository.class);
 
-    DrinkService drinkService = new DrinkService(drinkRepository);
+    DrinkService drinkService = new DrinkService(entityManager, drinkRepository);
 
     @Test
     void createDrink() {

@@ -2,7 +2,6 @@ package com.endstation.beveragemachine.service.dataprovider.db.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
-import com.endstation.beveragemachine.service.model.DrinkIngredient.UnitEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +11,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import static com.endstation.beveragemachine.service.model.DrinkIngredient.QuantityTypeEnum;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -35,7 +38,9 @@ public class DrinkIngredientConceptionEntity extends Audible<String> {
 
     private Integer amount;
 
-    private UnitEnum unit;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "quantity_type")
+    private QuantityTypeEnum quantityType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     DrinkEntity drink;

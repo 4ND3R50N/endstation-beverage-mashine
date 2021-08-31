@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class DrinkService {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
     private final DrinkRepository drinkRepository;
 
     public ResponseEntity<DrinkDataResponse> createDrink(DrinkData drinkData) {
@@ -32,7 +32,7 @@ public class DrinkService {
                         .map(drinkIngredient -> DrinkIngredientConceptionEntity.builder()
                                 .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
                                 .amount(drinkIngredient.getAmount().intValue())
-                                .unit(drinkIngredient.getUnit())
+                                .quantityType(drinkIngredient.getQuantityType())
                                 .build())
                         .collect(Collectors.toList()))
                 .build()).getDrinkId();

@@ -6,7 +6,7 @@ import com.endstation.beveragemachine.service.dataprovider.db.ingredients.Ingred
 import com.endstation.beveragemachine.service.model.DrinkData;
 import com.endstation.beveragemachine.service.model.DrinkDataResponse;
 import com.endstation.beveragemachine.service.model.DrinkIngredient;
-import com.endstation.beveragemachine.service.model.DrinkIngredient.UnitEnum;
+import com.endstation.beveragemachine.service.model.DrinkIngredient.QuantityTypeEnum;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
 import com.endstation.beveragemachine.service.model.IngredientResponse;
@@ -80,12 +80,12 @@ class DrinksControllerImplIntegrationTest {
                 .ingredients(List.of(DrinkIngredient.builder()
                                 .ingredientId(vodkaId)
                                 .amount(BigDecimal.valueOf(1))
-                                .unit(UnitEnum.CL)
+                                .quantityType(QuantityTypeEnum.CL)
                                 .build(),
                         DrinkIngredient.builder()
                                 .ingredientId(orangeJuiceId)
                                 .amount(BigDecimal.valueOf(2))
-                                .unit(UnitEnum.CL)
+                                .quantityType(QuantityTypeEnum.CL)
                                 .build()))
                 .build();
         // create drink with ingredients

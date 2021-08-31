@@ -321,7 +321,7 @@ components:
       required:
         - ingredientId
         - amount
-        - unit
+        - quantityType
       properties:
         ingredientId:
           type: integer
@@ -330,7 +330,7 @@ components:
         amount:
           type: number
           description: "this attribute combined with the unit is handling the quantity of the ingredient in the drink"
-        unit:
+        quantityType:
           type: string
           description: "unit for the amount"
           enum: [CL]
