@@ -17,6 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class DrinkServiceTest {
@@ -29,7 +31,10 @@ class DrinkServiceTest {
     private final DrinkData drinkDataMock = mock(DrinkData.class);
 
     @Mock
-    private final DrinkEntity drinkDataEntityMock = mock(DrinkEntity.class);
+    private final DrinkEntity drinkDataEntityOneMock = mock(DrinkEntity.class);
+
+    @Mock
+    private final DrinkEntity drinkDataEntityTwoMock = mock(DrinkEntity.class);
 
     @Mock
     private final DrinkRepository drinkRepository = mock(DrinkRepository.class);
@@ -39,9 +44,9 @@ class DrinkServiceTest {
     @Test
     void shouldCreateDrink() {
         // when
-        when(drinkMapper.map(drinkDataMock)).thenReturn(drinkDataEntityMock);
-        when(drinkRepository.save(any())).thenReturn(drinkDataEntityMock);
-        when(drinkDataEntityMock.getDrinkId()).thenReturn(12L);
+        when(drinkMapper.map(drinkDataMock)).thenReturn(drinkDataEntityOneMock);
+        when(drinkRepository.save(any())).thenReturn(drinkDataEntityOneMock);
+        when(drinkDataEntityOneMock.getDrinkId()).thenReturn(12L);
         ResponseEntity<DrinkDataResponse> result = drinkService.createDrink(drinkDataMock);
         // verify
         assertEquals(result.getStatusCode(), HttpStatus.CREATED);
@@ -52,8 +57,8 @@ class DrinkServiceTest {
     @Test
     void shouldGetDrinks() {
         // when
-        when(drinkRepository.findAll()).thenReturn(List.of(drinkDataEntityMock));
-        when(drinkMapper.map(drinkDataEntityMock)).thenReturn(drinkDataMock);
+        when(drinkRepository.findAll()).thenReturn(List.of(drinkDataEntityOneMock));
+        when(drinkMapper.map(drinkDataEntityOneMock)).thenReturn(drinkDataMock);
         ResponseEntity<List<DrinkData>> result = drinkService.getDrinks();
         // verify
         assertEquals(result.getStatusCode(), HttpStatus.OK);
@@ -67,13 +72,29 @@ class DrinkServiceTest {
         Long drinkId = 12L;
 
         // when
-        when(drinkRepository.findById(drinkId)).thenReturn(Optional.of(drinkDataEntityMock));
-        when(drinkMapper.map(drinkDataEntityMock)).thenReturn(drinkDataMock);
+        when(drinkRepository.findById(drinkId)).thenReturn(Optional.of(drinkDataEntityOneMock));
+        when(drinkMapper.map(drinkDataEntityOneMock)).thenReturn(drinkDataMock);
         ResponseEntity<DrinkData> result = drinkService.getDrinkById(drinkId);
 
         // verify
         assertEquals(result.getStatusCode(), HttpStatus.OK);
         assertThat(result.getBody()).isInstanceOf(DrinkData.class);
 
+    }
+
+    @Test
+    public void shouldUpdateOneDrink() {
+        // given
+        Long drinkId = 12L;
+
+        // when
+        when(drinkRepository.findById(drinkId)).thenReturn(Optional.of(drinkDataEntityOneMock));
+        when(drinkMapper.map(drinkId, drinkDataMock)).thenReturn(drinkDataEntityTwoMock);
+
+        ResponseEntity<Void> result = drinkService.updateDrink(drinkId, drinkDataMock);
+
+        // verify
+        verify(drinkRepository, times(1)).save(drinkDataEntityTwoMock);
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
     }
 }

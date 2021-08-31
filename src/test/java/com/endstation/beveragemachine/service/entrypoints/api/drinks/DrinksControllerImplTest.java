@@ -12,6 +12,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 class DrinksControllerImplTest {
+    @Mock
+    DrinkData drinkDataMock = mock(DrinkData.class);
 
     @Mock
     IngredientData ingredientData = mock(IngredientData.class);
@@ -22,13 +24,12 @@ class DrinksControllerImplTest {
     @Mock
     private final IngredientsService ingredientsService = mock(IngredientsService.class);
 
-    DrinksControllerImpl ingredientsController = new DrinksControllerImpl(drinkService, ingredientsService);
+    DrinksControllerImpl controller = new DrinksControllerImpl(drinkService, ingredientsService);
 
     @Test
     void shouldExecuteCreateIngredientServiceFunction() {
         // when
-        ingredientsController.createIngredient(ingredientData);
-
+        controller.createIngredient(ingredientData);
         // verify
         verify(ingredientsService, times(1)).createIngredient(ingredientData);
     }
@@ -36,8 +37,7 @@ class DrinksControllerImplTest {
     @Test
     void shouldExecuteGetIngredientServiceFunction() {
         // when
-        ingredientsController.getIngredients();
-
+        controller.getIngredients();
         // verify
         verify(ingredientsService, times(1)).getIngredients();
     }
@@ -45,8 +45,7 @@ class DrinksControllerImplTest {
     @Test
     void shouldExecuteGetIngredientByIdServiceFunction() {
         // when
-        ingredientsController.getIngredient(12L);
-
+        controller.getIngredient(12L);
         // verify
         verify(ingredientsService, times(1)).getIngredient(12L);
     }
@@ -54,55 +53,52 @@ class DrinksControllerImplTest {
     @Test
     void shouldExecuteDeleteIngredientByIdServiceFunction() {
         // when
-        ingredientsController.deleteIngredient(12L);
-
+        controller.deleteIngredient(12L);
         // verify
         verify(ingredientsService, times(1)).deleteIngredient(12L);
     }
 
     @Test
     void shouldExecuteUpdateIngredientServiceFunction() {
-
         IngredientData ingredientData = mock(IngredientData.class);
-
         // when
-        ingredientsController.updateIngredient(12L, ingredientData);
-
+        controller.updateIngredient(12L, ingredientData);
         // verify
         verify(ingredientsService, times(1)).updateIngredient(12L, ingredientData);
     }
 
     @Test
     void shouldExecuteCreateDrinkServiceFunction() {
-
         DrinkData drinkData = mock(DrinkData.class);
-
         // when
-        ingredientsController.createDrink(drinkData);
-
+        controller.createDrink(drinkData);
         // verify
         verify(drinkService, times(1)).createDrink(drinkData);
     }
 
     @Test
     void shouldExecuteGetDrinksServiceFunction() {
-
         // when
-        ingredientsController.getDrinks();
-
+        controller.getDrinks();
         // verify
         verify(drinkService, times(1)).getDrinks();
     }
 
     @Test
     void shouldExecuteGetDrinkByIdServiceFunction() {
-
         Long id = 12L;
-
         // when
-        ingredientsController.getDrink(id);
-
+        controller.getDrink(id);
         // verify
         verify(drinkService, times(1)).getDrinkById(id);
+    }
+
+    @Test
+    void shouldExecuteUpdateDrinkByIdServiceFunction() {
+        Long id = 12L;
+        // when
+        controller.updateDrink(id, drinkDataMock);
+        // verify
+        verify(drinkService, times(1)).updateDrink(id, drinkDataMock);
     }
 }

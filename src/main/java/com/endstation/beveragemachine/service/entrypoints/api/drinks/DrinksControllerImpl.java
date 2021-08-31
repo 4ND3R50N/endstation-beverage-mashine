@@ -61,7 +61,7 @@ public class DrinksControllerImpl implements DrinksApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Void> updateDrink(Long ingredientId, DrinkData drinkData) {
-        return null;
+    public ResponseEntity<Void> updateDrink(Long drinkId, DrinkData drinkData) {
+        return drinkService.updateDrink(drinkId, drinkData);
     }
 }

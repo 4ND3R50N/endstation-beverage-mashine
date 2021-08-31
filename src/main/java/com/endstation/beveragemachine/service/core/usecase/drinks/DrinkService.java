@@ -39,4 +39,14 @@ public class DrinkService {
         return repositoryDrinkDataOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    public ResponseEntity<Void> updateDrink(Long drinkId, DrinkData drinkData) {
+        // isEmpty() is sadly currently not working in native images due the following error:
+        // java.lang.NoSuchMethodError: java.util.Optional.isEmpty()
+        if (!drinkRepository.findById(drinkId).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        drinkRepository.save(drinkMapper.map(drinkId, drinkData));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

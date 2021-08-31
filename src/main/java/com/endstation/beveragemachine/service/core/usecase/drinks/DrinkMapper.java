@@ -36,6 +36,22 @@ public class DrinkMapper {
                 .build();
     }
 
+    public DrinkEntity map(Long drinkId, DrinkData drinkData) {
+        return DrinkEntity.builder()
+                .drinkId(drinkId)
+                .isBasicDrink(drinkData.getIsBasicDrink())
+                .name(drinkData.getName())
+                .visitorId(drinkData.getVisitorId())
+                .ingredientConceptions(drinkData.getIngredients().stream()
+                        .map(drinkIngredient -> DrinkIngredientConceptionEntity.builder()
+                                .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                                .amount(drinkIngredient.getAmount().intValue())
+                                .quantityType(drinkIngredient.getQuantityType())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
     public DrinkData map(DrinkEntity drinkEntity) {
         return DrinkData.builder()
                 .drinkId(JsonNullable.of(drinkEntity.getDrinkId()))
