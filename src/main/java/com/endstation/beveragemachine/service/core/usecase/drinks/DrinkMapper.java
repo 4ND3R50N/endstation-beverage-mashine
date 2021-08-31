@@ -28,7 +28,7 @@ public class DrinkMapper {
                 .visitorId(drinkData.getVisitorId())
                 .ingredientConceptions(drinkData.getIngredients().stream()
                         .map(drinkIngredient -> DrinkIngredientConceptionEntity.builder()
-                                .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                                .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
                                 .amount(drinkIngredient.getAmount().intValue())
                                 .quantityType(drinkIngredient.getQuantityType())
                                 .build())
