@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +35,7 @@ class DrinkServiceTest {
     DrinkService drinkService = new DrinkService(drinkMapper, drinkRepository);
 
     @Test
-    void createDrink() {
+    void shouldCreateDrink() {
         // when
         when(drinkMapper.map(drinkDataMock)).thenReturn(drinkDataEntityMock);
         when(drinkRepository.save(any())).thenReturn(drinkDataEntityMock);
@@ -43,6 +44,18 @@ class DrinkServiceTest {
         // verify
         assertEquals(result.getStatusCode(), HttpStatus.CREATED);
         assertEquals(Objects.requireNonNull(result.getBody()).getDrinkId(), 12L);
+
+    }
+
+    @Test
+    void shouldGetDrinks() {
+        // when
+        when(drinkRepository.findAll()).thenReturn(List.of(drinkDataEntityMock));
+        when(drinkMapper.map(drinkDataEntityMock)).thenReturn(drinkDataMock);
+        ResponseEntity<List<DrinkData>> result = drinkService.getDrinks();
+        // verify
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertEquals(Objects.requireNonNull(result.getBody()).size(), 1);
 
     }
 }

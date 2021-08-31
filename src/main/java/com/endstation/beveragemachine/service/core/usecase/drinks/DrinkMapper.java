@@ -4,11 +4,14 @@ import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkEntity
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.model.DrinkData;
+import com.endstation.beveragemachine.service.model.DrinkIngredient;
 import lombok.RequiredArgsConstructor;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,6 +31,22 @@ public class DrinkMapper {
                                 .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
                                 .amount(drinkIngredient.getAmount().intValue())
                                 .quantityType(drinkIngredient.getQuantityType())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    public DrinkData map(DrinkEntity drinkEntity) {
+        return DrinkData.builder()
+                .drinkId(JsonNullable.of(drinkEntity.getDrinkId()))
+                .name(drinkEntity.getName())
+                .isBasicDrink(drinkEntity.isBasicDrink())
+                .visitorId(drinkEntity.getVisitorId())
+                .ingredients(drinkEntity.getIngredientConceptions().stream()
+                        .map(drinkIngredientConception -> DrinkIngredient.builder()
+                                .ingredientId(drinkIngredientConception.getIngredient().getIngredientId())
+                                .quantityType(drinkIngredientConception.getQuantityType())
+                                .amount(BigDecimal.valueOf(drinkIngredientConception.getAmount()))
                                 .build())
                         .collect(Collectors.toList()))
                 .build();

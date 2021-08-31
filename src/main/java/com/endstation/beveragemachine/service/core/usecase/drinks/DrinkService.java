@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class DrinkService {
@@ -20,5 +23,12 @@ public class DrinkService {
         return new ResponseEntity<>(DrinkDataResponse.builder()
                 .drinkId(drinkId)
                 .build(), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<List<DrinkData>> getDrinks() {
+        return ResponseEntity.ok()
+                .body(drinkRepository.findAll().stream()
+                        .map(drinkMapper::map)
+                        .collect(Collectors.toList()));
     }
 }

@@ -52,7 +52,7 @@ public class DrinksControllerImpl implements DrinksApiDelegate {
 
     @Override
     public ResponseEntity<List<DrinkData>> getDrinks() {
-        return null;
+        return drinkService.getDrinks();
     }
 
     @Override
