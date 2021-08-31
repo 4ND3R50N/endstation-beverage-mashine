@@ -20,6 +20,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class DrinksControllerImplIntegrationTest {
 
@@ -47,8 +49,6 @@ class DrinksControllerImplIntegrationTest {
         drinkRepository.deleteAll();
         drinkIngredientConceptionRepository.deleteAll();
         ingredientsRepository.deleteAll();
-
-
     }
 
     @Test
