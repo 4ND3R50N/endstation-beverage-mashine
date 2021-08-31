@@ -43,7 +43,7 @@ public class DrinkIngredientConceptionEntity extends Audible<String> {
     private QuantityTypeEnum quantityType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    DrinkEntity drink;
+    private DrinkEntity drink;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private IngredientEntity ingredient;
