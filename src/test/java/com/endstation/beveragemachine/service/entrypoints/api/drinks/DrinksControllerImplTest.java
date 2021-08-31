@@ -83,4 +83,26 @@ class DrinksControllerImplTest {
         // verify
         verify(drinkService, times(1)).createDrink(drinkData);
     }
+
+    @Test
+    void shouldExecuteGetDrinksServiceFunction() {
+
+        // when
+        ingredientsController.getDrinks();
+
+        // verify
+        verify(drinkService, times(1)).getDrinks();
+    }
+
+    @Test
+    void shouldExecuteGetDrinkByIdServiceFunction() {
+
+        Long id = 12L;
+
+        // when
+        ingredientsController.getDrink(id);
+
+        // verify
+        verify(drinkService, times(1)).getDrinkById(id);
+    }
 }

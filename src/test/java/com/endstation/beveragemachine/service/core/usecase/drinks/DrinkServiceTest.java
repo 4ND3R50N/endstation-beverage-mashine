@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -56,6 +58,22 @@ class DrinkServiceTest {
         // verify
         assertEquals(result.getStatusCode(), HttpStatus.OK);
         assertEquals(Objects.requireNonNull(result.getBody()).size(), 1);
+
+    }
+
+    @Test
+    public void shouldGetOneIngredient() {
+        // given
+        Long drinkId = 12L;
+
+        // when
+        when(drinkRepository.findById(drinkId)).thenReturn(Optional.of(drinkDataEntityMock));
+        when(drinkMapper.map(drinkDataEntityMock)).thenReturn(drinkDataMock);
+        ResponseEntity<DrinkData> result = drinkService.getDrinkById(drinkId);
+
+        // verify
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertThat(result.getBody()).isInstanceOf(DrinkData.class);
 
     }
 }

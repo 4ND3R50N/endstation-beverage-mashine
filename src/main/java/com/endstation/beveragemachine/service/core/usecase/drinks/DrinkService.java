@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,5 +31,12 @@ public class DrinkService {
                 .body(drinkRepository.findAll().stream()
                         .map(drinkMapper::map)
                         .collect(Collectors.toList()));
+    }
+
+    public ResponseEntity<DrinkData> getDrinkById(Long drinkId) {
+        Optional<DrinkData> repositoryDrinkDataOptional = drinkRepository.findById(drinkId)
+                .map(drinkMapper::map);
+        return repositoryDrinkDataOptional.map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
