@@ -41,13 +41,13 @@ public class DrinksControllerImpl implements DrinksApiDelegate {
     }
 
     @Override
-    public ResponseEntity<DrinkDataResponse> createDrink(DrinkData drinkData) {
-        return drinkService.createDrink(drinkData);
+    public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
+        return ingredientsService.deleteIngredient(ingredientId);
     }
 
     @Override
-    public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
-        return ingredientsService.deleteIngredient(ingredientId);
+    public ResponseEntity<DrinkDataResponse> createDrink(DrinkData drinkData) {
+        return drinkService.createDrink(drinkData);
     }
 
     @Override

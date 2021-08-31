@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import javax.persistence.EntityManager;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +20,7 @@ class DrinkServiceTest {
 
 
     @Mock
-    private final EntityManager entityManager = mock(EntityManager.class);
+    private final DrinkMapper drinkMapper = mock(DrinkMapper.class);
 
     @Mock
     private final DrinkData drinkDataMock = mock(DrinkData.class);
@@ -32,11 +31,12 @@ class DrinkServiceTest {
     @Mock
     private final DrinkRepository drinkRepository = mock(DrinkRepository.class);
 
-    DrinkService drinkService = new DrinkService(entityManager, drinkRepository);
+    DrinkService drinkService = new DrinkService(drinkMapper, drinkRepository);
 
     @Test
     void createDrink() {
         // when
+        when(drinkMapper.map(drinkDataMock)).thenReturn(drinkDataEntityMock);
         when(drinkRepository.save(any())).thenReturn(drinkDataEntityMock);
         when(drinkDataEntityMock.getDrinkId()).thenReturn(12L);
         ResponseEntity<DrinkDataResponse> result = drinkService.createDrink(drinkDataMock);
