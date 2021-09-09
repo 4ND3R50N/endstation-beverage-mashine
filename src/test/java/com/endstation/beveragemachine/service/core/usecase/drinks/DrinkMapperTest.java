@@ -65,7 +65,17 @@ class DrinkMapperTest {
     @Test
     void mapDrinkEntityToData() {
         // given
-        DrinkEntity drinkEntity = DrinkEntity.builder()
+        DrinkEntity drinkEntity = new DrinkEntity("Lars P.", "Orange Juice", true);
+
+        drinkEntity.addConception(DrinkIngredientConceptionEntity.builder()
+                        .amount(2)
+                        .quantityType(QuantityTypeEnum.CL)
+                .ingredient(IngredientEntity.builder()
+                        .ingredientId(INGREDIENT_ID)
+                        .build())
+                .build());
+
+/*                DrinkEntity.builder()
                 .name("Orange juice")
                 .visitorId("Lars P.")
                 .isBasicDrink(true)
@@ -77,7 +87,7 @@ class DrinkMapperTest {
                         .amount(2)
                         .quantityType(QuantityTypeEnum.CL)
                         .build()))
-                .build();
+                .build();*/
 
         // when
         DrinkData result = drinkMapper.map(drinkEntity);

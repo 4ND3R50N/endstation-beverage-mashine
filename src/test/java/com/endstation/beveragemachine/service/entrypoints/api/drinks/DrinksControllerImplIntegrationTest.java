@@ -44,6 +44,10 @@ class DrinksControllerImplIntegrationTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    private Long orangeJuiceId;
+    private IngredientData orangeJuice;
+    private Long drinkId;
+
     @BeforeEach
     void setup() {
         drinkRepository.deleteAll();
@@ -53,8 +57,40 @@ class DrinksControllerImplIntegrationTest {
 
     @Test
     void shouldCreateAndDeleteDrink() {
+        createDrink();
+
+        // delete drink by id
+        ResponseEntity<Void> deleteResult = testRestTemplate.exchange("/api/v1/drinks/" + drinkId, HttpMethod.DELETE, new HttpEntity<>(null), Void.class);
+        assertEquals(deleteResult.getStatusCode(), HttpStatus.OK);
+
+        // assert
+        assertEquals(2, (long) ingredientsRepository.findAll().size());
+        assertEquals(0, (long) drinkIngredientConceptionRepository.findAll().size());
+        assertEquals(0, (long) drinkRepository.findAll().size());
+    }
+
+    @Test
+    void shouldCreateDrinkAndDeleteIngredient() {
+
+        createDrink();
+
+        // check database
+        assertEquals((long) ingredientsRepository.findAll().size(), 2);
+        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 2);
+        assertEquals((long) drinkRepository.findAll().size(), 1);
+
+        // remove ingredient
+        ResponseEntity<IngredientResponse> resultFour = testRestTemplate.exchange("/api/v1/drinks/ingredient/" + orangeJuiceId, HttpMethod.DELETE, new HttpEntity<>(orangeJuice), IngredientResponse.class);
+        assertEquals(resultFour.getStatusCode(), HttpStatus.OK);
+        assertEquals((long) ingredientsRepository.findAll().size(), 1);
+        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 1);
+        assertEquals((long) drinkRepository.findAll().size(), 1);
+    }
+
+
+    private void createDrink() {
         // given
-        IngredientData orangeJuice = IngredientData.builder()
+        orangeJuice = IngredientData.builder()
                 .name("Orange Juice")
                 .liquidType(LiquidTypeEnum.SOFTDRINK)
                 .build();
@@ -70,7 +106,7 @@ class DrinksControllerImplIntegrationTest {
         assertEquals(resultOne.getStatusCode(), HttpStatus.CREATED);
         assertEquals(resultTwo.getStatusCode(), HttpStatus.CREATED);
 
-        Long orangeJuiceId = Objects.requireNonNull(resultOne.getBody()).getIngredientId();
+        orangeJuiceId = Objects.requireNonNull(resultOne.getBody()).getIngredientId();
         Long vodkaId = Objects.requireNonNull(resultTwo.getBody()).getIngredientId();
 
         DrinkData drink = DrinkData.builder()
@@ -91,17 +127,6 @@ class DrinksControllerImplIntegrationTest {
         // create drink with ingredients
         ResponseEntity<DrinkDataResponse> resultThree = testRestTemplate.exchange("/api/v1/drinks", HttpMethod.POST, new HttpEntity<>(drink), DrinkDataResponse.class);
         assertEquals(resultThree.getStatusCode(), HttpStatus.CREATED);
-
-        // check database
-        assertEquals((long) ingredientsRepository.findAll().size(), 2);
-        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 2);
-        assertEquals((long) drinkRepository.findAll().size(), 1);
-
-        // remove ingredient
-        ResponseEntity<IngredientResponse> resultFour = testRestTemplate.exchange("/api/v1/drinks/ingredient/" + orangeJuiceId, HttpMethod.DELETE, new HttpEntity<>(orangeJuice), IngredientResponse.class);
-        assertEquals(resultFour.getStatusCode(), HttpStatus.OK);
-        assertEquals((long) ingredientsRepository.findAll().size(), 1);
-        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 1);
-        assertEquals((long) drinkRepository.findAll().size(), 1);
+        drinkId = Objects.requireNonNull(resultThree.getBody()).getDrinkId();
     }
 }

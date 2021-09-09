@@ -2,23 +2,9 @@ package com.endstation.beveragemachine.service.dataprovider.db.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static com.endstation.beveragemachine.service.model.DrinkIngredient.QuantityTypeEnum;
 
@@ -42,10 +28,10 @@ public class DrinkIngredientConceptionEntity extends Audible<String> {
     @Column(name = "quantity_type")
     private QuantityTypeEnum quantityType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private DrinkEntity drink;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private IngredientEntity ingredient;
 
 }

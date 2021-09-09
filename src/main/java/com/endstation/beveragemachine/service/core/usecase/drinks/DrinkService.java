@@ -49,4 +49,11 @@ public class DrinkService {
         drinkRepository.save(drinkMapper.map(drinkId, drinkData));
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public ResponseEntity<Void> deleteDrinkBy(Long drinkId) {
+
+        drinkRepository.deleteById(drinkId);
+
+        return ResponseEntity.ok().build();
+    }
 }

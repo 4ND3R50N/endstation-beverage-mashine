@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,34 +24,30 @@ public class DrinkMapper {
     private final EntityManager entityManager;
 
     public DrinkEntity map(DrinkData drinkData) {
-        return DrinkEntity.builder()
-                .isBasicDrink(drinkData.getIsBasicDrink())
-                .name(drinkData.getName())
-                .visitorId(drinkData.getVisitorId())
-                .ingredientConceptions(drinkData.getIngredients().stream()
-                        .map(drinkIngredient -> DrinkIngredientConceptionEntity.builder()
-                                .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
-                                .amount(drinkIngredient.getAmount().intValue())
-                                .quantityType(drinkIngredient.getQuantityType())
-                                .build())
-                        .collect(Collectors.toList()))
-                .build();
+        List<DrinkIngredientConceptionEntity> conceptions = new ArrayList<>();
+
+        drinkData.getIngredients().forEach(drinkIngredient -> conceptions.add(DrinkIngredientConceptionEntity.builder()
+                .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                .amount(drinkIngredient.getAmount().intValue())
+                .quantityType(drinkIngredient.getQuantityType())
+                .build()));
+
+        DrinkEntity entity = new DrinkEntity(drinkData.getVisitorId(), drinkData.getName(), drinkData.getIsBasicDrink());
+        for (DrinkIngredientConceptionEntity conception : conceptions) {
+            entity.addConception(conception);
+        }
+        return entity;
     }
 
     public DrinkEntity map(Long drinkId, DrinkData drinkData) {
-        return DrinkEntity.builder()
-                .drinkId(drinkId)
-                .isBasicDrink(drinkData.getIsBasicDrink())
-                .name(drinkData.getName())
-                .visitorId(drinkData.getVisitorId())
-                .ingredientConceptions(drinkData.getIngredients().stream()
-                        .map(drinkIngredient -> DrinkIngredientConceptionEntity.builder()
-                                .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
-                                .amount(drinkIngredient.getAmount().intValue())
-                                .quantityType(drinkIngredient.getQuantityType())
-                                .build())
-                        .collect(Collectors.toList()))
-                .build();
+
+        return new DrinkEntity(drinkId, drinkData.getVisitorId(), drinkData.getIngredients().stream()
+                .map(drinkIngredient -> DrinkIngredientConceptionEntity.builder()
+                        .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                        .amount(drinkIngredient.getAmount().intValue())
+                        .quantityType(drinkIngredient.getQuantityType())
+                        .build())
+                .collect(Collectors.toList()), drinkData.getName(), drinkData.getIsBasicDrink());
     }
 
     public DrinkData map(DrinkEntity drinkEntity) {

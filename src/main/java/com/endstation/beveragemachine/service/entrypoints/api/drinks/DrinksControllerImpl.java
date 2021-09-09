@@ -64,4 +64,9 @@ public class DrinksControllerImpl implements DrinksApiDelegate {
     public ResponseEntity<Void> updateDrink(Long drinkId, DrinkData drinkData) {
         return drinkService.updateDrink(drinkId, drinkData);
     }
+
+    @Override
+    public ResponseEntity<Void> deleteDrink(Long drinkId) {
+        return drinkService.deleteDrinkBy(drinkId);
+    }
 }
