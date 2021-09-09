@@ -75,20 +75,6 @@ class DrinkMapperTest {
                         .build())
                 .build());
 
-/*                DrinkEntity.builder()
-                .name("Orange juice")
-                .visitorId("Lars P.")
-                .isBasicDrink(true)
-                .drinkId(DRINK_ID)
-                .ingredientConceptions(List.of(DrinkIngredientConceptionEntity.builder()
-                        .ingredient(IngredientEntity.builder()
-                                .ingredientId(INGREDIENT_ID)
-                                .build())
-                        .amount(2)
-                        .quantityType(QuantityTypeEnum.CL)
-                        .build()))
-                .build();*/
-
         // when
         DrinkData result = drinkMapper.map(drinkEntity);
 

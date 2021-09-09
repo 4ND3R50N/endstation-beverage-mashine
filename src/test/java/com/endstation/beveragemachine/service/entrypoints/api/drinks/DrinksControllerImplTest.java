@@ -101,4 +101,13 @@ class DrinksControllerImplTest {
         // verify
         verify(drinkService, times(1)).updateDrink(id, drinkDataMock);
     }
+
+    @Test
+    void shouldExecuteDeleteDrinkByIdServiceFunction() {
+        Long id = 12L;
+        // when
+        controller.deleteDrink(id);
+        // verify
+        verify(drinkService, times(1)).deleteDrinkBy(id);
+    }
 }

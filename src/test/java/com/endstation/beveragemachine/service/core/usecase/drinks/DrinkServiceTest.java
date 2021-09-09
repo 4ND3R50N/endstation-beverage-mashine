@@ -97,4 +97,16 @@ class DrinkServiceTest {
         verify(drinkRepository, times(1)).save(drinkDataEntityTwoMock);
         assertEquals(result.getStatusCode(), HttpStatus.OK);
     }
+
+    @Test
+    public void shouldDeleteOneDrink() {
+        // given
+        Long drinkId = 12L;
+
+        ResponseEntity<Void> result = drinkService.deleteDrinkBy(drinkId);
+
+        // verify
+        verify(drinkRepository, times(1)).deleteById(drinkId);
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+    }
 }
