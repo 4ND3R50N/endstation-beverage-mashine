@@ -54,10 +54,7 @@ public class IngredientsService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
-        ingredientsRepository.findById(ingredientId).ifPresent( ingredientEntity -> {
-
-                ingredientsRepository.delete(ingredientEntity);
-        });
+        ingredientsRepository.findById(ingredientId).ifPresent(ingredientsRepository::delete);
 
         return ResponseEntity.ok().build();
     }

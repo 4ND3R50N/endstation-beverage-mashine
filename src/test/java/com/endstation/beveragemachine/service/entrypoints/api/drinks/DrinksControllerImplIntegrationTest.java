@@ -1,5 +1,6 @@
 package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 
+import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionRepository;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkRepository;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
@@ -44,6 +45,7 @@ class DrinksControllerImplIntegrationTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    private DrinkData drink;
     private Long orangeJuiceId;
     private IngredientData orangeJuice;
     private Long drinkId;
@@ -71,13 +73,7 @@ class DrinksControllerImplIntegrationTest {
 
     @Test
     void shouldCreateDrinkAndDeleteIngredient() {
-
         createDrink();
-
-        // check database
-        assertEquals((long) ingredientsRepository.findAll().size(), 2);
-        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 2);
-        assertEquals((long) drinkRepository.findAll().size(), 1);
 
         // remove ingredient
         ResponseEntity<IngredientResponse> resultFour = testRestTemplate.exchange("/api/v1/drinks/ingredient/" + orangeJuiceId, HttpMethod.DELETE, new HttpEntity<>(orangeJuice), IngredientResponse.class);
@@ -85,6 +81,22 @@ class DrinksControllerImplIntegrationTest {
         assertEquals((long) ingredientsRepository.findAll().size(), 1);
         assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 1);
         assertEquals((long) drinkRepository.findAll().size(), 1);
+    }
+
+    @Test
+    public void shouldCreateAndModifyDrink() {
+        createDrink();
+
+        // edit drink by removing one conception
+        drink.setIngredients(List.of(drink.getIngredients().get(0)));
+        ResponseEntity<Void> updateResult = testRestTemplate.exchange("/api/v1/drinks/" + drinkId, HttpMethod.POST, new HttpEntity<>(drink), Void.class);
+        assertEquals(updateResult.getStatusCode(), HttpStatus.OK);
+
+        // assert db
+        assertEquals((long) ingredientsRepository.findAll().size(), 2);
+        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 1);
+        assertEquals((long) drinkRepository.findAll().size(), 1);
+
     }
 
 
@@ -109,7 +121,7 @@ class DrinksControllerImplIntegrationTest {
         orangeJuiceId = Objects.requireNonNull(resultOne.getBody()).getIngredientId();
         Long vodkaId = Objects.requireNonNull(resultTwo.getBody()).getIngredientId();
 
-        DrinkData drink = DrinkData.builder()
+        drink = DrinkData.builder()
                 .name("Vodka-O")
                 .visitorId("Lars P.")
                 .isBasicDrink(true)
@@ -127,6 +139,12 @@ class DrinksControllerImplIntegrationTest {
         // create drink with ingredients
         ResponseEntity<DrinkDataResponse> resultThree = testRestTemplate.exchange("/api/v1/drinks", HttpMethod.POST, new HttpEntity<>(drink), DrinkDataResponse.class);
         assertEquals(resultThree.getStatusCode(), HttpStatus.CREATED);
+
+        // check database
+        assertEquals((long) ingredientsRepository.findAll().size(), 2);
+        assertEquals((long) drinkIngredientConceptionRepository.findAll().size(), 2);
+        assertEquals((long) drinkRepository.findAll().size(), 1);
+
         drinkId = Objects.requireNonNull(resultThree.getBody()).getDrinkId();
     }
 }

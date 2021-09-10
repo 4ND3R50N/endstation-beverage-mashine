@@ -53,15 +53,6 @@ public class DrinkEntity extends Audible<String> {
     }
 
 
-    public DrinkEntity(Long drinkId, String visitorId, String name, boolean isBasicDrink) {
-        this.drinkId = drinkId;
-        this.visitorId = visitorId;
-        this.name = name;
-        this.isBasicDrink = isBasicDrink;
-
-    }
-
-
     public void addConception(DrinkIngredientConceptionEntity conception) {
         conception.setDrink(this);
         ingredientConceptions.add(conception);
