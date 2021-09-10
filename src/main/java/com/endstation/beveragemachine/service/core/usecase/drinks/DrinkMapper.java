@@ -29,7 +29,7 @@ public class DrinkMapper {
 
         drinkData.getIngredients()
                 .forEach(drinkIngredient -> entity.addConception(DrinkIngredientConceptionEntity.builder()
-                        .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                        .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
                         .amount(drinkIngredient.getAmount().intValue())
                         .quantityType(drinkIngredient.getQuantityType())
                         .build()));

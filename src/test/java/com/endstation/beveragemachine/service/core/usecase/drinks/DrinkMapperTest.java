@@ -66,7 +66,7 @@ class DrinkMapperTest {
     void mapDrinkEntityToData() {
         // given
         DrinkEntity drinkEntity = new DrinkEntity("Lars P.", "Orange Juice", true);
-
+        drinkEntity.setDrinkId(DRINK_ID);
         drinkEntity.addConception(DrinkIngredientConceptionEntity.builder()
                         .amount(2)
                         .quantityType(QuantityTypeEnum.CL)
