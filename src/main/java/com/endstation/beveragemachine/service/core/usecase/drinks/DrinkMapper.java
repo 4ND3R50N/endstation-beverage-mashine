@@ -24,18 +24,16 @@ public class DrinkMapper {
     private final EntityManager entityManager;
 
     public DrinkEntity map(DrinkData drinkData) {
-        List<DrinkIngredientConceptionEntity> conceptions = new ArrayList<>();
-
-        drinkData.getIngredients().forEach(drinkIngredient -> conceptions.add(DrinkIngredientConceptionEntity.builder()
-                .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
-                .amount(drinkIngredient.getAmount().intValue())
-                .quantityType(drinkIngredient.getQuantityType())
-                .build()));
 
         DrinkEntity entity = new DrinkEntity(drinkData.getVisitorId(), drinkData.getName(), drinkData.getIsBasicDrink());
-        for (DrinkIngredientConceptionEntity conception : conceptions) {
-            entity.addConception(conception);
-        }
+
+        drinkData.getIngredients()
+                .forEach(drinkIngredient -> entity.addConception(DrinkIngredientConceptionEntity.builder()
+                        .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                        .amount(drinkIngredient.getAmount().intValue())
+                        .quantityType(drinkIngredient.getQuantityType())
+                        .build()));
+
         return entity;
     }
 
