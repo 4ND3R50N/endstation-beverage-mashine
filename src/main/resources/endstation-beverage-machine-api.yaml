@@ -147,11 +147,13 @@ paths:
       operationId: getDrinks
       responses:
         '200':
-          description: Drink got successfuly updated
+          description: Drink got successfuly fetched
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DrinkDataList'
+        '404':
+          description: Drink cant be found
   /drinks/{drinkId}:
     post:
       summary: "Use this endpoint to update a drink"
@@ -177,6 +179,8 @@ paths:
       responses:
         '204':
           description: Drink got successfuly updated
+        '404':
+          description: Drink cant be found
     get:
       summary: "Use this endpoint to get a drink by id"
       tags:
@@ -197,9 +201,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DrinkData'
+        '404':
+          description: Ingredient cant be found
+    delete:
+      summary: "Use this endpoint to delete a drink by id"
+      tags:
+        - Drink Management
+      operationId: deleteDrink
+      parameters:
+        - name: drinkId
+          in: path
+          description: Drink Id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Drink got deleted
+        '404':
+          description: Drink cant be found
+
   /beverage-machine/ingredience:
     post:
-      summary: "Use this endpoint to tell the machine which slots contains which ingredience"
+      summary: "Use this endpoint to tell the machine which slots contains which ingredients"
       tags:
         - Machine Interactions
       operationId: setIngredienceOnMachine

@@ -1,5 +1,7 @@
 package com.endstation.beveragemachine.service.core.usecase.ingredients;
 
+import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionRepository;
+import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientResponse;
@@ -52,7 +54,8 @@ public class IngredientsService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
-        ingredientsRepository.deleteById(ingredientId);
+        ingredientsRepository.findById(ingredientId).ifPresent(ingredientsRepository::delete);
+
         return ResponseEntity.ok().build();
     }
 }

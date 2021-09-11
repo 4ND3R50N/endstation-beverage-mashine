@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,10 +47,10 @@ public class IngredientEntity extends Audible<String> {
 
     @OneToMany(
             mappedBy = "ingredient",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<DrinkIngredientConceptionEntity> drinkConceptions;
 }
 

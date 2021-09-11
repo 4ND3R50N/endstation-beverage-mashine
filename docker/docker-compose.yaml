@@ -1,3 +1,4 @@
+version: "3"
 services:
   postgres:
     image: postgres:13.4
@@ -22,9 +23,9 @@ services:
         ipv4_address: 172.21.0.2
   beverage-machine-service:
     image: endstation-beverage-machine-service:0.0.1-SNAPSHOT
+    restart: always
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     environment:
       DB_ROOT: 172.21.0.2
       SPRING_DATASOURCE_USERNAME: sa

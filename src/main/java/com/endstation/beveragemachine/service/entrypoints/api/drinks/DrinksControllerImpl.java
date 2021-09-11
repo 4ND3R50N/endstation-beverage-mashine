@@ -41,27 +41,32 @@ public class DrinksControllerImpl implements DrinksApiDelegate {
     }
 
     @Override
-    public ResponseEntity<DrinkDataResponse> createDrink(DrinkData drinkData) {
-        return drinkService.createDrink(drinkData);
-    }
-
-    @Override
     public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
         return ingredientsService.deleteIngredient(ingredientId);
     }
 
     @Override
+    public ResponseEntity<DrinkDataResponse> createDrink(DrinkData drinkData) {
+        return drinkService.createDrink(drinkData);
+    }
+
+    @Override
     public ResponseEntity<List<DrinkData>> getDrinks() {
-        return null;
+        return drinkService.getDrinks();
     }
 
     @Override
     public ResponseEntity<DrinkData> getDrink(Long drinkId) {
-        return null;
+        return drinkService.getDrinkById(drinkId);
     }
 
     @Override
-    public ResponseEntity<Void> updateDrink(Long ingredientId, DrinkData drinkData) {
-        return null;
+    public ResponseEntity<Void> updateDrink(Long drinkId, DrinkData drinkData) {
+        return drinkService.updateDrink(drinkId, drinkData);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteDrink(Long drinkId) {
+        return drinkService.deleteDrinkBy(drinkId);
     }
 }
