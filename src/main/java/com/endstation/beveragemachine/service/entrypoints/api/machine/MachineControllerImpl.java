@@ -1,11 +1,10 @@
 package com.endstation.beveragemachine.service.entrypoints.api.machine;
 
-import com.endstation.beveragemachine.service.api.BeverageMachineApi;
-import com.endstation.beveragemachine.service.api.DrinksApiDelegate;
-import com.endstation.beveragemachine.service.core.usecase.drinks.DrinkService;
-import com.endstation.beveragemachine.service.core.usecase.Ingredients.IngredientsService;
-import com.endstation.beveragemachine.service.model.*;
+import com.endstation.beveragemachine.service.api.BeverageMachineApiDelegate;
+import com.endstation.beveragemachine.service.model.BottleSlots;
+import com.endstation.beveragemachine.service.model.MachineIngredientsRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +12,14 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MachineControllerImpl implements BeverageMachineApi {
-
-
+public class MachineControllerImpl implements BeverageMachineApiDelegate {
 
     public ResponseEntity<List<BottleSlots>> getSlots() {
-        return getDelegate().getSlots();
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
+
+    public ResponseEntity<List<BottleSlots>> setSlots(MachineIngredientsRequest machineIngredientsRequest) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
 }

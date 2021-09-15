@@ -242,6 +242,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MachineIngredientsResponse'
+        '404':
+          description: Slot or ingredient not found
     get:
       summary: "Get all current Ingredient slots"
       tags:
