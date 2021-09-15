@@ -1,7 +1,7 @@
 package com.endstation.beveragemachine.service.dataprovider.db.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
-import com.endstation.beveragemachine.service.dataprovider.db.Ingredients.IngredientEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
 import lombok.*;
 
 import javax.persistence.*;

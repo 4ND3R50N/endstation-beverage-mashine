@@ -376,6 +376,8 @@ components:
       properties:
         slotId:
           type: number
+          minimum: 1
+          maximum: 6
           description: "bottle slot"   
         ingredientId:
           type: number
@@ -391,7 +393,7 @@ components:
         - ingredientId
       properties:
           slotId:
-            type: number
+            type: integer
             description: "bottle slot"   
           ingredientId:
             description: "Ingredient id"

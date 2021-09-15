@@ -23,7 +23,7 @@ public class BottleSlotEntity extends Audible<String> {
     @Id
     @Column(name = "ingredient_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long slotId;
+    private Integer slotId;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false, mappedBy = "slot")
     @OnDelete(action = OnDeleteAction.NO_ACTION)

@@ -2,7 +2,7 @@ package com.endstation.beveragemachine.service.core.usecase.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionEntity;
-import com.endstation.beveragemachine.service.dataprovider.db.Ingredients.IngredientEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.model.DrinkData;
 import com.endstation.beveragemachine.service.model.DrinkIngredient;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component

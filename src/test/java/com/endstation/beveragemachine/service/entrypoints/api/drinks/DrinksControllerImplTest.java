@@ -1,7 +1,7 @@
 package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 
 import com.endstation.beveragemachine.service.core.usecase.drinks.DrinkService;
-import com.endstation.beveragemachine.service.core.usecase.Ingredients.IngredientsService;
+import com.endstation.beveragemachine.service.core.usecase.ingredients.IngredientsService;
 import com.endstation.beveragemachine.service.model.DrinkData;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import org.junit.jupiter.api.Test;

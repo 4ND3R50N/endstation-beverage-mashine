@@ -22,6 +22,6 @@ public class MachineControllerImpl implements BeverageMachineApiDelegate {
     }
 
     public ResponseEntity<List<BottleSlots>> setSlots(MachineIngredientsRequest machineIngredientsRequest) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return machineService.setSlots(machineIngredientsRequest);
     }
 }

@@ -44,7 +44,7 @@ public class IngredientEntity extends Audible<String> {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<DrinkIngredientConceptionEntity> drinkConceptions;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "ingredient")
+    @OneToOne(fetch = FetchType.EAGER)
     private BottleSlotEntity slot;
 }
 

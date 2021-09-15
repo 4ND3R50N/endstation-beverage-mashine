@@ -1,4 +1,4 @@
-package com.endstation.beveragemachine.service.dataprovider.db.Ingredients;
+package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
 
 import com.endstation.beveragemachine.service.model.IngredientData;
 import org.junit.jupiter.api.BeforeEach;

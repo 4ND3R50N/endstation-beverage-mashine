@@ -11,8 +11,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {
-        "com.endstation.beveragemachine.service.dataprovider.db.Ingredients",
-        "com.endstation.beveragemachine.service.dataprovider.db.drinks"
+        "com.endstation.beveragemachine.service.dataprovider.db.ingredients",
+        "com.endstation.beveragemachine.service.dataprovider.db.drinks",
+        "com.endstation.beveragemachine.service.dataprovider.db.machine"
 })
 @EnableTransactionManagement
 public class H2TestProfileJPAConfig {

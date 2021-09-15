@@ -2,7 +2,7 @@ package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionRepository;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkRepository;
-import com.endstation.beveragemachine.service.dataprovider.db.Ingredients.IngredientsRepository;
+import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
 import com.endstation.beveragemachine.service.model.*;
 import com.endstation.beveragemachine.service.model.DrinkIngredient.QuantityTypeEnum;
 import com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
