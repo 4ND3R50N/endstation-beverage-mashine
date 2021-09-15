@@ -1,7 +1,8 @@
-package com.endstation.beveragemachine.service.dataprovider.db.Ingredients;
+package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.machine.BottleSlotEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,17 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 import static com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
@@ -52,5 +43,8 @@ public class IngredientEntity extends Audible<String> {
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<DrinkIngredientConceptionEntity> drinkConceptions;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "ingredient")
+    private BottleSlotEntity slot;
 }
 

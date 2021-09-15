@@ -1,4 +1,4 @@
-package com.endstation.beveragemachine.service.dataprovider.db.Ingredients;
+package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

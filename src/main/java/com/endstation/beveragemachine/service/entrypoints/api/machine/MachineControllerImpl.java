@@ -1,6 +1,7 @@
 package com.endstation.beveragemachine.service.entrypoints.api.machine;
 
 import com.endstation.beveragemachine.service.api.BeverageMachineApiDelegate;
+import com.endstation.beveragemachine.service.core.usecase.machine.MachineService;
 import com.endstation.beveragemachine.service.model.BottleSlots;
 import com.endstation.beveragemachine.service.model.MachineIngredientsRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MachineControllerImpl implements BeverageMachineApiDelegate {
 
+    private final MachineService machineService;
+
     public ResponseEntity<List<BottleSlots>> getSlots() {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return machineService.getSlots();
     }
 
     public ResponseEntity<List<BottleSlots>> setSlots(MachineIngredientsRequest machineIngredientsRequest) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
-
 }
