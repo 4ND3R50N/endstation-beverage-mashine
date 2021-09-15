@@ -1,5 +1,7 @@
 package com.endstation.beveragemachine.service.core.usecase.machine;
 
+import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.machine.BottleSlotEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.machine.BottleSlotsRepository;
 import com.endstation.beveragemachine.service.model.BottleSlots;
 import com.endstation.beveragemachine.service.model.MachineIngredientsRequest;
@@ -8,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 public class MachineService {
 
     private final BottleSlotsRepository bottleSlotsRepository;
+    private final EntityManager entityManager;
 
     public ResponseEntity<List<BottleSlots>> getSlots() {
         return new ResponseEntity<>(bottleSlotsRepository.findAll().stream()
@@ -28,6 +32,10 @@ public class MachineService {
     }
 
     public ResponseEntity<List<BottleSlots>> setSlots(MachineIngredientsRequest machineIngredientsRequest) {
-        return null;
+        bottleSlotsRepository.save(BottleSlotEntity.builder()
+                .slotId(machineIngredientsRequest.getSlotId().intValue())
+                .ingredient(entityManager.getReference(IngredientEntity.class, (long) machineIngredientsRequest.getIngredientId().intValue()))
+                .build());
+        return getSlots();
     }
 }
