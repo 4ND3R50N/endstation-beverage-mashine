@@ -1,8 +1,8 @@
-package com.endstation.beveragemachine.service.core.usecase.ingredients;
+package com.endstation.beveragemachine.service.core.usecase.Ingredients;
 
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionRepository;
-import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
-import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
+import com.endstation.beveragemachine.service.dataprovider.db.Ingredients.IngredientEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.Ingredients.IngredientsRepository;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,27 +19,27 @@ import java.util.stream.Collectors;
 public class IngredientsService {
 
     private final IngredientMapper ingredientMapper;
-    private final IngredientsRepository ingredientsRepository;
+    private final IngredientsRepository IngredientsRepository;
 
     public ResponseEntity<IngredientResponse> createIngredient(IngredientData ingredientData) {
 
-        if (ingredientsRepository.existsByName(ingredientData.getName())) {
+        if (IngredientsRepository.existsByName(ingredientData.getName())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         return new ResponseEntity<>(IngredientResponse.builder()
-                .ingredientId(ingredientsRepository.save(ingredientMapper
+                .ingredientId(IngredientsRepository.save(ingredientMapper
                         .map(ingredientData))
                         .getIngredientId())
                 .build(), HttpStatus.CREATED);
     }
     public ResponseEntity<List<IngredientData>> getIngredients() {
-        return ResponseEntity.ok(ingredientsRepository.findAll().stream()
+        return ResponseEntity.ok(IngredientsRepository.findAll().stream()
                 .map(ingredientMapper::map)
                 .collect(Collectors.toList()));
     }
     public ResponseEntity<IngredientData> getIngredient(Long ingredientId) {
-        Optional<IngredientData> ingredientDataOptional = ingredientsRepository.findById(ingredientId)
+        Optional<IngredientData> ingredientDataOptional = IngredientsRepository.findById(ingredientId)
                 .map(ingredientMapper::map);
         return ingredientDataOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -47,14 +47,14 @@ public class IngredientsService {
     public ResponseEntity<Void> updateIngredient(Long ingredientId, IngredientData ingredientData) {
         // isEmpty() is sadly currently not working in native images due the following error:
         // java.lang.NoSuchMethodError: java.util.Optional.isEmpty()
-        if (!ingredientsRepository.findById(ingredientId).isPresent()) {
+        if (!IngredientsRepository.findById(ingredientId).isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ingredientsRepository.save(ingredientMapper.map(ingredientId, ingredientData));
+        IngredientsRepository.save(ingredientMapper.map(ingredientId, ingredientData));
         return new ResponseEntity<>(HttpStatus.OK);
     }
     public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
-        ingredientsRepository.findById(ingredientId).ifPresent(ingredientsRepository::delete);
+        IngredientsRepository.findById(ingredientId).ifPresent(IngredientsRepository::delete);
 
         return ResponseEntity.ok().build();
     }

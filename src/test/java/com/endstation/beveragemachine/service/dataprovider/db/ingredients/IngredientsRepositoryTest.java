@@ -1,4 +1,4 @@
-package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
+package com.endstation.beveragemachine.service.dataprovider.db.Ingredients;
 
 import com.endstation.beveragemachine.service.model.IngredientData;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,17 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class IngredientsRepositoryTest {
 
     @Autowired
-    private IngredientsRepository ingredientsRepository;
+    private IngredientsRepository IngredientsRepository;
 
     @BeforeEach
     void setup() {
-        ingredientsRepository.deleteAll();
+        IngredientsRepository.deleteAll();
     }
 
     @Test
     void injectedComponentsAreNotNull() {
         // given
-        assertThat(ingredientsRepository).isNotNull();
+        assertThat(IngredientsRepository).isNotNull();
 
         IngredientEntity ingredientEntity = IngredientEntity.builder()
                 .name("orange juice")
@@ -35,11 +35,11 @@ class IngredientsRepositoryTest {
                 .build();
 
         // when
-        Long result = ingredientsRepository.save(ingredientEntity).getIngredientId();
+        Long result = IngredientsRepository.save(ingredientEntity).getIngredientId();
 
         // then
         assertThat(result).isNotNull();
-        assertThat(ingredientsRepository.count()).isEqualTo(1);
+        assertThat(IngredientsRepository.count()).isEqualTo(1);
 
     }
 

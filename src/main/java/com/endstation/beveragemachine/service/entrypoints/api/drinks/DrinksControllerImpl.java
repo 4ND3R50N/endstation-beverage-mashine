@@ -1,8 +1,9 @@
 package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 
+import com.endstation.beveragemachine.service.api.DrinksApi;
 import com.endstation.beveragemachine.service.api.DrinksApiDelegate;
 import com.endstation.beveragemachine.service.core.usecase.drinks.DrinkService;
-import com.endstation.beveragemachine.service.core.usecase.ingredients.IngredientsService;
+import com.endstation.beveragemachine.service.core.usecase.Ingredients.IngredientsService;
 import com.endstation.beveragemachine.service.model.DrinkData;
 import com.endstation.beveragemachine.service.model.DrinkDataResponse;
 import com.endstation.beveragemachine.service.model.IngredientData;
@@ -18,31 +19,31 @@ import java.util.List;
 public class DrinksControllerImpl implements DrinksApiDelegate {
 
     private final DrinkService drinkService;
-    private final IngredientsService ingredientsService;
+    private final IngredientsService IngredientsService;
 
     @Override
     public ResponseEntity<IngredientResponse> createIngredient(IngredientData ingredientData) {
-        return ingredientsService.createIngredient(ingredientData);
+        return IngredientsService.createIngredient(ingredientData);
     }
 
     @Override
     public ResponseEntity<List<IngredientData>> getIngredients() {
-        return ingredientsService.getIngredients();
+        return IngredientsService.getIngredients();
     }
 
     @Override
     public ResponseEntity<IngredientData> getIngredient(Long ingredientId) {
-        return ingredientsService.getIngredient(ingredientId);
+        return IngredientsService.getIngredient(ingredientId);
     }
 
     @Override
     public ResponseEntity<Void> updateIngredient(Long ingredientId, IngredientData ingredientData) {
-        return ingredientsService.updateIngredient(ingredientId, ingredientData);
+        return IngredientsService.updateIngredient(ingredientId, ingredientData);
     }
 
     @Override
     public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
-        return ingredientsService.deleteIngredient(ingredientId);
+        return IngredientsService.deleteIngredient(ingredientId);
     }
 
     @Override

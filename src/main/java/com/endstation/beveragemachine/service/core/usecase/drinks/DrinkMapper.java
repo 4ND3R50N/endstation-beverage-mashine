@@ -2,7 +2,7 @@ package com.endstation.beveragemachine.service.core.usecase.drinks;
 
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionEntity;
-import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.Ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.model.DrinkData;
 import com.endstation.beveragemachine.service.model.DrinkIngredient;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class DrinkMapper {
 
         drinkData.getIngredients()
                 .forEach(drinkIngredient -> entity.addConception(DrinkIngredientConceptionEntity.builder()
-                        .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                        .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
                         .amount(drinkIngredient.getAmount().intValue())
                         .quantityType(drinkIngredient.getQuantityType())
                         .build()));

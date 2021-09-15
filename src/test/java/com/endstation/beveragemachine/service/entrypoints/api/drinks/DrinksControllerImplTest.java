@@ -1,7 +1,7 @@
 package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 
 import com.endstation.beveragemachine.service.core.usecase.drinks.DrinkService;
-import com.endstation.beveragemachine.service.core.usecase.ingredients.IngredientsService;
+import com.endstation.beveragemachine.service.core.usecase.Ingredients.IngredientsService;
 import com.endstation.beveragemachine.service.model.DrinkData;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import org.junit.jupiter.api.Test;
@@ -22,16 +22,16 @@ class DrinksControllerImplTest {
     private final DrinkService drinkService = mock(DrinkService.class);
 
     @Mock
-    private final IngredientsService ingredientsService = mock(IngredientsService.class);
+    private final IngredientsService IngredientsService = mock(IngredientsService.class);
 
-    DrinksControllerImpl controller = new DrinksControllerImpl(drinkService, ingredientsService);
+    DrinksControllerImpl controller = new DrinksControllerImpl(drinkService, IngredientsService);
 
     @Test
-    void shouldExecuteCreateIngredientServiceFunction() {
+    void shouldExecuteCreateIngredientserviceFunction() {
         // when
         controller.createIngredient(ingredientData);
         // verify
-        verify(ingredientsService, times(1)).createIngredient(ingredientData);
+        verify(IngredientsService, times(1)).createIngredient(ingredientData);
     }
 
     @Test
@@ -39,7 +39,7 @@ class DrinksControllerImplTest {
         // when
         controller.getIngredients();
         // verify
-        verify(ingredientsService, times(1)).getIngredients();
+        verify(IngredientsService, times(1)).getIngredients();
     }
 
     @Test
@@ -47,7 +47,7 @@ class DrinksControllerImplTest {
         // when
         controller.getIngredient(12L);
         // verify
-        verify(ingredientsService, times(1)).getIngredient(12L);
+        verify(IngredientsService, times(1)).getIngredient(12L);
     }
 
     @Test
@@ -55,16 +55,16 @@ class DrinksControllerImplTest {
         // when
         controller.deleteIngredient(12L);
         // verify
-        verify(ingredientsService, times(1)).deleteIngredient(12L);
+        verify(IngredientsService, times(1)).deleteIngredient(12L);
     }
 
     @Test
-    void shouldExecuteUpdateIngredientServiceFunction() {
+    void shouldExecuteUpdateIngredientserviceFunction() {
         IngredientData ingredientData = mock(IngredientData.class);
         // when
         controller.updateIngredient(12L, ingredientData);
         // verify
-        verify(ingredientsService, times(1)).updateIngredient(12L, ingredientData);
+        verify(IngredientsService, times(1)).updateIngredient(12L, ingredientData);
     }
 
     @Test

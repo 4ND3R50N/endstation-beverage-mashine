@@ -1,4 +1,4 @@
-package com.endstation.beveragemachine.service.dataprovider.db.ingredients;
+package com.endstation.beveragemachine.service.dataprovider.db.Ingredients;
 
 import com.endstation.beveragemachine.service.dataprovider.db.Audible;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionEntity;
@@ -31,7 +31,7 @@ import static com.endstation.beveragemachine.service.model.IngredientData.Liquid
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ingredients")
+@Table(name = "Ingredients")
 public class IngredientEntity extends Audible<String> {
     @Id
     @Column(name = "ingredient_id")

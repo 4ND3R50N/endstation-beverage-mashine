@@ -1,6 +1,6 @@
-package com.endstation.beveragemachine.service.core.usecase.ingredients;
+package com.endstation.beveragemachine.service.core.usecase.Ingredients;
 
-import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
+import com.endstation.beveragemachine.service.dataprovider.db.Ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
 import org.junit.jupiter.api.Test;
