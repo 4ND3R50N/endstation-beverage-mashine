@@ -22,16 +22,16 @@ class DrinksControllerImplTest {
     private final DrinkService drinkService = mock(DrinkService.class);
 
     @Mock
-    private final IngredientsService IngredientsService = mock(IngredientsService.class);
+    private final IngredientsService ingredientsService = mock(IngredientsService.class);
 
-    DrinksControllerImpl controller = new DrinksControllerImpl(drinkService, IngredientsService);
+    DrinksControllerImpl controller = new DrinksControllerImpl(drinkService, ingredientsService);
 
     @Test
-    void shouldExecuteCreateIngredientserviceFunction() {
+    void shouldExecuteCreateIngredientServiceFunction() {
         // when
         controller.createIngredient(ingredientData);
         // verify
-        verify(IngredientsService, times(1)).createIngredient(ingredientData);
+        verify(ingredientsService, times(1)).createIngredient(ingredientData);
     }
 
     @Test
@@ -39,7 +39,7 @@ class DrinksControllerImplTest {
         // when
         controller.getIngredients();
         // verify
-        verify(IngredientsService, times(1)).getIngredients();
+        verify(ingredientsService, times(1)).getIngredients();
     }
 
     @Test
@@ -47,7 +47,7 @@ class DrinksControllerImplTest {
         // when
         controller.getIngredient(12L);
         // verify
-        verify(IngredientsService, times(1)).getIngredient(12L);
+        verify(ingredientsService, times(1)).getIngredient(12L);
     }
 
     @Test
@@ -55,7 +55,7 @@ class DrinksControllerImplTest {
         // when
         controller.deleteIngredient(12L);
         // verify
-        verify(IngredientsService, times(1)).deleteIngredient(12L);
+        verify(ingredientsService, times(1)).deleteIngredient(12L);
     }
 
     @Test
@@ -64,7 +64,7 @@ class DrinksControllerImplTest {
         // when
         controller.updateIngredient(12L, ingredientData);
         // verify
-        verify(IngredientsService, times(1)).updateIngredient(12L, ingredientData);
+        verify(ingredientsService, times(1)).updateIngredient(12L, ingredientData);
     }
 
     @Test
