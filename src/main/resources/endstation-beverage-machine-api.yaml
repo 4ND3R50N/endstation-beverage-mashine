@@ -337,9 +337,9 @@ components:
             $ref: '#/components/schemas/DrinkIngredient'
     DrinkDataForMachine:
       required:
-        - Ingredients
+        - ingredients
       properties:
-        Ingredients:
+        ingredients:
           type: array
           description: "list of Ingredients with exact amount of quantity"
           items:
