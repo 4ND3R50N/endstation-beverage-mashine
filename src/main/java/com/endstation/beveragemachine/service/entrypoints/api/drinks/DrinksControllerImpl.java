@@ -18,31 +18,31 @@ import java.util.List;
 public class DrinksControllerImpl implements DrinksApiDelegate {
 
     private final DrinkService drinkService;
-    private final IngredientsService IngredientsService;
+    private final IngredientsService ingredientsService;
 
     @Override
     public ResponseEntity<IngredientResponse> createIngredient(IngredientData ingredientData) {
-        return IngredientsService.createIngredient(ingredientData);
+        return ingredientsService.createIngredient(ingredientData);
     }
 
     @Override
     public ResponseEntity<List<IngredientData>> getIngredients() {
-        return IngredientsService.getIngredients();
+        return ingredientsService.getIngredients();
     }
 
     @Override
     public ResponseEntity<IngredientData> getIngredient(Long ingredientId) {
-        return IngredientsService.getIngredient(ingredientId);
+        return ingredientsService.getIngredient(ingredientId);
     }
 
     @Override
     public ResponseEntity<Void> updateIngredient(Long ingredientId, IngredientData ingredientData) {
-        return IngredientsService.updateIngredient(ingredientId, ingredientData);
+        return ingredientsService.updateIngredient(ingredientId, ingredientData);
     }
 
     @Override
     public ResponseEntity<Void> deleteIngredient(Long ingredientId) {
-        return IngredientsService.deleteIngredient(ingredientId);
+        return ingredientsService.deleteIngredient(ingredientId);
     }
 
     @Override

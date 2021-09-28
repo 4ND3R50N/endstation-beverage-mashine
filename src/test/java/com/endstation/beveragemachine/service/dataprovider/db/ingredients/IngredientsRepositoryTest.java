@@ -17,17 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class IngredientsRepositoryTest {
 
     @Autowired
-    private IngredientsRepository IngredientsRepository;
+    private IngredientsRepository ingredientsRepository;
 
     @BeforeEach
     void setup() {
-        IngredientsRepository.deleteAll();
+        ingredientsRepository.deleteAll();
     }
 
     @Test
     void injectedComponentsAreNotNull() {
         // given
-        assertThat(IngredientsRepository).isNotNull();
+        assertThat(ingredientsRepository).isNotNull();
 
         IngredientEntity ingredientEntity = IngredientEntity.builder()
                 .name("orange juice")
@@ -35,11 +35,11 @@ class IngredientsRepositoryTest {
                 .build();
 
         // when
-        Long result = IngredientsRepository.save(ingredientEntity).getIngredientId();
+        Long result = ingredientsRepository.save(ingredientEntity).getIngredientId();
 
         // then
         assertThat(result).isNotNull();
-        assertThat(IngredientsRepository.count()).isEqualTo(1);
+        assertThat(ingredientsRepository.count()).isEqualTo(1);
 
     }
 

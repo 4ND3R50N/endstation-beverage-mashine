@@ -22,7 +22,7 @@ import static com.endstation.beveragemachine.service.model.IngredientData.Liquid
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Ingredients")
+@Table(name = "ingredients")
 public class IngredientEntity extends Audible<String> {
     @Id
     @Column(name = "ingredient_id")
