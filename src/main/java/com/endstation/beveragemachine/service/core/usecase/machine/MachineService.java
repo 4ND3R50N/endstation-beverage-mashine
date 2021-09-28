@@ -22,12 +22,7 @@ public class MachineService {
     private final EntityManager entityManager;
 
     public ResponseEntity<List<BottleSlots>> getSlots() {
-        return new ResponseEntity<>(bottleSlotsRepository.findAll().stream()
-                .map(bottleSlotEntity -> BottleSlots.builder()
-                        .slotId(bottleSlotEntity.getSlotId())
-                        .ingredientId(bottleSlotEntity.getIngredient().getIngredientId())
-                        .build())
-                .collect(Collectors.toList()),
+        return new ResponseEntity<>(collectSlots(),
                 HttpStatus.OK);
     }
 
@@ -36,6 +31,17 @@ public class MachineService {
                 .slotId(machineIngredientsRequest.getSlotId().intValue())
                 .ingredient(entityManager.getReference(IngredientEntity.class, (long) machineIngredientsRequest.getIngredientId().intValue()))
                 .build());
-        return getSlots();
+        List<BottleSlots> slots = collectSlots();
+        // todo: sync current slots to the beverage machine
+        return new ResponseEntity<>(slots, HttpStatus.OK);
+    }
+
+    private List<BottleSlots> collectSlots() {
+        return bottleSlotsRepository.findAll().stream()
+                .map(bottleSlotEntity -> BottleSlots.builder()
+                        .slotId(bottleSlotEntity.getSlotId())
+                        .ingredientId(bottleSlotEntity.getIngredient().getIngredientId())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

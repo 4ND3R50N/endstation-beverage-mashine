@@ -5,7 +5,6 @@ import com.endstation.beveragemachine.service.core.usecase.machine.MachineServic
 import com.endstation.beveragemachine.service.model.BottleSlots;
 import com.endstation.beveragemachine.service.model.MachineIngredientsRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
