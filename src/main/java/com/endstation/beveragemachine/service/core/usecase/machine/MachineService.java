@@ -27,13 +27,14 @@ public class MachineService {
     }
 
     public ResponseEntity<List<BottleSlots>> setSlots(MachineIngredientsRequest machineIngredientsRequest) {
+        // todo: add check for slot id (only 1 - 6 is allowed)
         bottleSlotsRepository.save(BottleSlotEntity.builder()
-                .slotId(machineIngredientsRequest.getSlotId().intValue())
-                .ingredient(entityManager.getReference(IngredientEntity.class, (long) machineIngredientsRequest.getIngredientId().intValue()))
+                .slotId(machineIngredientsRequest.getSlotId().longValue())
+                .ingredient(entityManager.find(IngredientEntity.class, machineIngredientsRequest.getIngredientId().longValue()))
                 .build());
         List<BottleSlots> slots = collectSlots();
         // todo: sync current slots to the beverage machine
-        return new ResponseEntity<>(slots, HttpStatus.OK);
+        return new ResponseEntity<>(slots, HttpStatus.CREATED);
     }
 
     private List<BottleSlots> collectSlots() {
