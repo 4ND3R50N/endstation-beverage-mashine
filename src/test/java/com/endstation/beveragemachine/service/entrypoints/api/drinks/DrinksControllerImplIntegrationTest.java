@@ -3,6 +3,7 @@ package com.endstation.beveragemachine.service.entrypoints.api.drinks;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionRepository;
 import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkRepository;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
+import com.endstation.beveragemachine.service.dataprovider.db.machine.BottleSlotsRepository;
 import com.endstation.beveragemachine.service.model.*;
 import com.endstation.beveragemachine.service.model.DrinkIngredient.QuantityTypeEnum;
 import com.endstation.beveragemachine.service.model.IngredientData.LiquidTypeEnum;
@@ -38,6 +39,10 @@ class DrinksControllerImplIntegrationTest {
     DrinkRepository drinkRepository;
 
     @Autowired
+    BottleSlotsRepository bottleSlotsRepository;
+
+
+    @Autowired
     private TestRestTemplate testRestTemplate;
 
     private DrinkData drink;
@@ -50,6 +55,7 @@ class DrinksControllerImplIntegrationTest {
         drinkRepository.deleteAll();
         drinkIngredientConceptionRepository.deleteAll();
         ingredientsRepository.deleteAll();
+        bottleSlotsRepository.deleteAll();
     }
 
     @Test

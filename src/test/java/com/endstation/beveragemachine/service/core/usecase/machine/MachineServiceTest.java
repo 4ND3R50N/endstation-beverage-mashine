@@ -89,7 +89,7 @@ class MachineServiceTest {
 
         // verify
         verify(bottleSlotsRepository, times(1)).save(any());
-        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
         assertEquals(2, Objects.requireNonNull(result.getBody()).size());
     }
 }

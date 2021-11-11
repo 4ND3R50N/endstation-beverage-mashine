@@ -17,11 +17,11 @@ import javax.persistence.*;
 @Table(name = "bottle_slots")
 public class BottleSlotEntity extends Audible<String> {
     @Id
-    @Column(name = "ingredient_id")
+    @Column(name = "slot_id")
     private Long slotId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "ingredient_id")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private IngredientEntity ingredient;
 }
